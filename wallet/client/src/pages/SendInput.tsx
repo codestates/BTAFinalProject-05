@@ -11,24 +11,16 @@ import {useBalance} from "../hooks";
 
 const NETWORKS = [
     {
-        label: 'palm (testnet)',
-        value: 'palm',
+        label: 'ergo (testnet)',
+        value: 'ergo',
         disabled: false,
     },
     {
-        label: 'palm (Mainnet)',
-        value: 'palm Main',
+        label: 'ergo (Mainnet)',
+        value: 'ergo Main',
         disabled: true,
     },
 ];
-
-const BALANCES = [
-    {
-        name: 'palm',
-        ticker: 'PALM',
-        balance: '0.050000',
-    }
-]
 
 const SendInput = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);

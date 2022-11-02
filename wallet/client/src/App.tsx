@@ -17,12 +17,13 @@ function App() {
     }), []);
 
     const theme = useMemo(() =>
-            createTheme({
+        createTheme({
                 palette: {
                     mode,
                 },
-            }),
-        [mode]);
+            }
+        ), [mode]
+    );
 
     return (
         <RecoilRoot>

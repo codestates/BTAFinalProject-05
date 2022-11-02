@@ -33,7 +33,7 @@ export const CoinCard: FC<CoinCardProps> = (props) => {
             }}
         >
             <Avatar
-               alt="palm"
+               alt="ergo"
                src="/ergo_logo_192.png"
             />
             <Box

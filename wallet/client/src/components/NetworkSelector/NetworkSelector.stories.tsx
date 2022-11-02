@@ -30,8 +30,8 @@ export const NetworkSelectorStory = Template.bind({});
 NetworkSelectorStory.args = {
     options: [
         {
-            label: 'palm Layer 2(testnet)',
-            value: 'palm',
+            label: 'ergo',
+            value: 'ergo',
             disabled: false,
         },
         {

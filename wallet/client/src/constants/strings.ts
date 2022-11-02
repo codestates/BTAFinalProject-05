@@ -5,7 +5,7 @@ const STRINGS = {
     GLOBAL: {
         PROJECT_NAME: 'ERGO Wallet',
         PROJECT_DESCRIPTION: '아래 버튼을 눌러 시작하세요.',
-        COIN_NAME: 'PALM',
+        COIN_NAME: 'ERGO',
     },
     /************************
      * Component String 정보 *
