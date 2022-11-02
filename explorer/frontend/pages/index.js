@@ -23,7 +23,7 @@ export async function getServerSideProps(context) {
   const id = context.query.id;
   // get block with height range (fromHeight, toHeight)
   const request = await fetch(
-    "http://localhost:9052/blocks/chainSlice?fromHeight=0&toHeight=5"
+    "http://localhost:9052/blocks/lastHeaders/10"
   ).then((response) => response.json());
 
   return {

@@ -3,7 +3,7 @@ import BlockInfo from "./BlockInfo";
 export default function BlockResults({ results }) {
   return (
     <div className="m-8 flex flex-col ">
-      <div className="m-2 text-lg">Latest Block</div>
+      <div className="m-2 text-lg">Latest {results.length} Block</div>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           <thead>
@@ -12,9 +12,9 @@ export default function BlockResults({ results }) {
               <th>TIMESTAMP</th>
               <th>Block ID</th>
               <th>parent Id</th>
-              <th>adProofsRoot</th>
-              <th>transactionsRoot</th>
-              <th>adProofsId</th>
+              <th>adProofs Root</th>
+              <th>transactions Root</th>
+              <th>adProofs Id</th>
             </tr>
           </thead>
           <tbody>
