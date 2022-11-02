@@ -1,15 +1,15 @@
-get: 
+get:
   tags:
     - WALLET
   summary: Get Mnemonic Phrase
   description: ""
-  parameters: 
-  - name: password
-    in: query
-    description: ""
-    required: true
-    schema: 
-      type: string
+  parameters:
+    - name: password
+      in: query
+      description: ""
+      required: true
+      schema:
+        type: string
   
   responses:
     "200":
@@ -17,4 +17,4 @@ get:
     "204":
       $ref: "../swagger.yaml#/components/responses/NoContentResponse"
     "5XX":
-      $ref: "../swagger.yaml#/components/responses/ErrorResponse" 
+      $ref: "../swagger.yaml#/components/responses/ErrorResponse"

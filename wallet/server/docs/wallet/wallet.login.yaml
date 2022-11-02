@@ -1,4 +1,4 @@
-post: 
+post:
   tags:
     - WALLET
   summary: Login
@@ -16,13 +16,13 @@ post:
             mnemonicPhrase:
               type: string
               required: true
-            
+
   responses:
     "201":
       $ref: "../swagger.yaml#/components/responses/CreatedResponse"
     "403":
-      $ref: "../swagger.yaml#/components/responses/DupEntryResponse"      
+      $ref: "../swagger.yaml#/components/responses/DupEntryResponse"
     "400":
-      $ref: "../swagger.yaml#/components/responses/BadRequestResponse"      
+      $ref: "../swagger.yaml#/components/responses/BadRequestResponse"
     "5XX":
-      $ref: "../swagger.yaml#/components/responses/ErrorResponse"       
+      $ref: "../swagger.yaml#/components/responses/ErrorResponse"

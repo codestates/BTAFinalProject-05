@@ -1,4 +1,4 @@
-get: 
+get:
   tags:
     - WALLET
   summary: Generate Mnemonic Code
@@ -9,4 +9,4 @@ get:
     "204":
       $ref: "../swagger.yaml#/components/responses/NoContentResponse"
     "5XX":
-      $ref: "../swagger.yaml#/components/responses/ErrorResponse" 
+      $ref: "../swagger.yaml#/components/responses/ErrorResponse"

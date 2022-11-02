@@ -1,8 +1,10 @@
-import express from "express";
-import cors from "cors";
-import YAML from 'yamljs'
-import path from 'path';
-import swaggerUi from 'swagger-ui-express'
+const express = require('express');
+const cors = require('cors');
+const YAML = require('yamljs');
+const path = require('path');
+// const swaggerUi = require('swaggerUi');
+import {serve, setup} from 'swagger-ui-express'
+
 import indexRouter from "../route/index";
 import apiRouter from "../route/api";
 import { notFoundErrorHandler, errorHandler}  from '../middleware/apiErrorHandler';
@@ -18,9 +20,8 @@ app.use("/api", apiRouter);
 
 console.log("Swagger On : /api-docs");
 const swaggerSpec = YAML.load(path.join(__dirname, '../../dist/swagger.yaml'));
-var options = {swaggerOptions: { docExpansion : "none"}}
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, options))
-
+const options = {swaggerOptions: { docExpansion : "none"}}
+app.use('/api-docs', serve, setup(swaggerSpec, options))
 
 app.use(notFoundErrorHandler);
 app.use(errorHandler);

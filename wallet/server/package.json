@@ -1,7 +1,7 @@
 {
-  "name": "aaa",
+  "name": "wallet-api-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "A wallet api server for ERGO",
   "main": "index.js",
   "scripts": {
     "test": "mocha -r ts-node/register 'test/**/*.ts'",

@@ -1,5 +1,3 @@
-import { Response } from 'express';
-
 export default class ApiError extends Error {
     code : number | string;
     status : number;
