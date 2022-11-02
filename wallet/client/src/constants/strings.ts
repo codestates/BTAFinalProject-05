@@ -3,7 +3,7 @@ const STRINGS = {
      *   Global String 정보  *
      ***********************/
     GLOBAL: {
-        PROJECT_NAME: '$PALM Wallet',
+        PROJECT_NAME: 'ERGO Wallet',
         PROJECT_DESCRIPTION: '아래 버튼을 눌러 시작하세요.',
         COIN_NAME: 'PALM',
     },

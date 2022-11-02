@@ -34,7 +34,7 @@ export const CoinCard: FC<CoinCardProps> = (props) => {
         >
             <Avatar
                alt="palm"
-               src="/palm_logo_192.png"
+               src="/ergo_logo_192.png"
             />
             <Box
                 sx={{

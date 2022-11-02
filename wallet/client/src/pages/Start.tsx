@@ -41,8 +41,8 @@ const Start = () => {
                         width: 200,
                         height: 200,
                     }}
-                    alt="$PALM"
-                    src="/palm_logo_192.png"
+                    alt="ERGO"
+                    src="/ergo_logo_192.png"
                 />
                 <Box>
                     <Box mt={2} display="flex"  flexDirection="column" alignItems="center">

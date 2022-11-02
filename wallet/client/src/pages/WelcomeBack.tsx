@@ -67,7 +67,7 @@ const WelcomeBack = () => {
                         width: 140,
                         height: 140,
                     }}
-                    alt="$PALM"
+                    alt="ERGO"
                     src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
                 />
                 <Box>

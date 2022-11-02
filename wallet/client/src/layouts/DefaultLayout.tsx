@@ -29,8 +29,8 @@ const DefaultLayout: FC<PropsWithChildren<DefaultLayoutProps>> = (props) => {
                             width: 30,
                             height: 30,
                         }}
-                        alt="$PALM"
-                        src="/palm_logo_32.png"
+                        alt="ERGO"
+                        src="/ergo_logo_32.png"
                     />
                 </Box>
             )}

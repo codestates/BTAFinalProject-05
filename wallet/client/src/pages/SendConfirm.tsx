@@ -91,7 +91,7 @@ const SendConfirm = () => {
                             width: 25,
                             height: 25,
                         }}
-                        alt="$PALM"
+                        alt="ERGO"
                         src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
                     />
                 </Box>
