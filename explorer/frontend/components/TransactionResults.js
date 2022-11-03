@@ -1,26 +1,41 @@
+import Link from "next/link";
 import BlockInfo from "./BlockInfo";
 
-export default function BlockResults({ results }) {
-  console.log(results);
+export default function TransactionResults({ results }) {
   return (
     <div className="m-8 flex flex-col ">
-      <div className="m-2 text-lg">Latest {results.length} Block</div>
+      <div className="m-2 text-lg">{results.length} Transactions</div>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           <thead>
             <tr>
-              <th>HEIGHT</th>
-              <th>TIMESTAMP</th>
-              <th>Block ID</th>
-              <th>parent Id</th>
-              <th>adProofs Root</th>
-              <th>transactions Root</th>
-              <th>adProofs Id</th>
+              <th>ID</th>
+              <th>inputs</th>
+              <th>outputs</th>
+              <th>dataInputs</th>
+              <th>size</th>
             </tr>
           </thead>
           <tbody>
             {results.map((result) => (
-              <BlockInfo key={result._id} result={result._source} />
+              <tr key={result._id}>
+                <td>
+                  <Link
+                    className="text-sky-600"
+                    href={`/transactions/${result._source.id}`}
+                  >
+                    {result._source.id}
+                  </Link>
+                </td>
+                <td>{result._source.inputs.length}</td>
+                <td>{result._source.outputs.length}</td>
+                <td>
+                  {result._source.dataInputs
+                    ? result._source.dataInputs.length
+                    : null}
+                </td>
+                <td>{result._source.size}</td>
+              </tr>
             ))}
           </tbody>
         </table>

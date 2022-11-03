@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function BlockInfo({ result }) {
+  console.log(result);
   return (
     <tr>
       <td>{result.height}</td>

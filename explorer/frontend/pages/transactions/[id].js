@@ -1,6 +1,5 @@
-import { useRouter } from "next/router";
-import BlockDetail from "../../components/BlockDetail";
 import Header from "../../components/header";
+import TransactionDetail from "../../components/TransactionDetail";
 
 const { Client } = require("@elastic/elasticsearch");
 const client = new Client({
@@ -11,31 +10,20 @@ export default function BlockDetailPage({ result }) {
   return (
     <>
       <Header />
-      <BlockDetail result={result._source} />
+      <TransactionDetail result={result} />
     </>
   );
 }
 
 export async function getServerSideProps(context) {
-  // const id = context.query.id;
-  // // console.log(id);
-  // const request = await fetch(`http://localhost:9052/blocks/${id}`).then(
-  //   (response) => response.json()
-  // );
-  // // console.log(request);
-  // return {
-  //   props: {
-  //     result: request,
-  //   },
-  // };
   const id = context.query.id;
   // get transaction from elasticsearch
   const { body } = await client.search({
-    index: "ergo_block_detail",
+    index: "ergo_transaction",
     body: {
       query: {
         match: {
-          "header.id": id,
+          id: id,
         },
       },
     },
