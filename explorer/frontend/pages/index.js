@@ -12,7 +12,7 @@ export default function Home({ results }) {
   return (
     <div>
       <Head>
-        <title>Erognet Explorer</title>
+        <title>Ergonet Explorer</title>
         <meta name="description" content="find transactions" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
