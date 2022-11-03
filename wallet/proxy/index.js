@@ -24,18 +24,17 @@ app.get('/info', (req, res, next) => {
   res.send('This is a proxy service which proxies to Billing and Account APIs.');
 });
 
-// GET wallet/lock
-// POST wallet/unlock {"pass": ""}
-app.get('/wallet/remove', (req, res, next) => {
-  fs.readFile(path.join(process.env.HOME, '/ergo/.ergo/wallet'), 'utf8', function (err, data) {
-    if (err) {
-
-      return console.log(err);
-    }
-    console.log(data);
-    res.send(JSON.parse(data));
-  });
-});
+// TODO: wallet 정보 삭제 test
+// app.get('/wallet/remove', (req, res, next) => {
+//   fs.readFile(path.join(process.env.HOME, '/ergo/.ergo/wallet'), 'utf8', function (err, data) {
+//     if (err) {
+//
+//       return console.log(err);
+//     }
+//     console.log(data);
+//     res.send(JSON.parse(data));
+//   });
+// });
 
 // Proxy endpoints
 app.use(createProxyMiddleware({

@@ -1,5 +1,5 @@
 {
-  "name": "ergo-proxy",
+  "name": "ergo-wallet-proxy",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
