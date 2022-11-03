@@ -31,7 +31,7 @@ const Test = () => {
     const unlockWallet = async () => {
         const data = {pass: PASSWORD};
         const config = {headers: {'Content-Type': 'application/json;charset=UTF-8', api_key: API_KEY}}
-        const result = axios.post(ERGO_ENDPOINTS.WALLET.UNLOCK, data, config);
+        const result = await axios.post(ERGO_ENDPOINTS.WALLET.UNLOCK, data, config);
         console.log(result);
     };
 
