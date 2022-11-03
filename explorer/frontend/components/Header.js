@@ -15,12 +15,14 @@ export default function Header() {
   return (
     <>
       <div className="text-gray-700 flex flex-col items-center p-6 select-none sm:flex-row justify-between">
-        <Image
-          alt="ergo logo"
-          src="https://s2.coinmarketcap.com/static/img/coins/64x64/1762.png"
-          width={50}
-          height={50}
-        />
+        <Link href="/">
+          <Image
+            alt="ergo logo"
+            src="https://s2.coinmarketcap.com/static/img/coins/64x64/1762.png"
+            width={50}
+            height={50}
+          />
+        </Link>
         <div className="flex">
           <Link href="/">
             <HeaderIcon Icon={HomeIcon} title="Home" />
@@ -28,7 +30,9 @@ export default function Header() {
           <Link href="/blocks">
             <HeaderIcon Icon={InboxIcon} title="Blocks" />
           </Link>
-          <HeaderIcon Icon={SwitchHorizontalIcon} title="Transaction" />
+          <Link href="/transactions">
+            <HeaderIcon Icon={SwitchHorizontalIcon} title="Transaction" />
+          </Link>
           <HeaderIcon Icon={AtSymbolIcon} title="Address" />
         </div>
       </div>

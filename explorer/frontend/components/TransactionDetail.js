@@ -1,46 +1,67 @@
-export default function BlockDetail({ result }) {
+import TransactionBox from "./TransactionBox";
+
+export default function TransactionDetail({ result }) {
   console.log(result);
   return (
-    <div className="overflow-x-auto m-3">
-      {result.header ? (
+    <div className="m-3">
+      {result._id ? (
         <>
-          <div className="m-3 text-lg">Block #{result.header.height}</div>
-          <table className="table table-zebra w-full">
-            <tbody>
-              <tr>
-                <th>Height</th>
-                <td>{result.header.height}</td>
-              </tr>
-              <tr>
-                <th>Timestamp</th>
-                <td>{result.header.timestamp}</td>
-              </tr>
-              <tr>
-                <th>Id</th>
-                <td>{result.header.id}</td>
-              </tr>
-              <tr>
-                <th>parentId</th>
-                <td>{result.header.parentId}</td>
-              </tr>
-              <tr>
-                <th>adProofsRoot</th>
-                <td>{result.header.adProofsRoot}</td>
-              </tr>
-              <tr>
-                <th>Difficulty</th>
-                <td>{result.header.transactionsRoot}</td>
-              </tr>
-              <tr>
-                <th>extensionHash</th>
-                <td>{result.header.extensionHash}</td>
-              </tr>
-              <tr>
-                <th>size</th>
-                <td>{result.size}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="divide-y divide-slate-400/75">
+            <TransactionBox
+              title="Transaction ID"
+              content={result._source.id}
+            />
+
+            <TransactionBox
+              title="Data Inputs"
+              content={JSON.stringify({ ...result._source.dataInputs })}
+            />
+
+            <div className="pt-6 md:p-8 md:text-left space-y-1">
+              <div className="font-bold text-lg">
+                <div className="text-slate-700 dark:text-slate-800">Inputs</div>
+              </div>
+              {result._source.inputs.map((input) => (
+                <>
+                  <TransactionBox title="boxId" content={input.boxId} />
+                  <TransactionBox
+                    title="spendingProof"
+                    content={JSON.stringify({ ...input.spendingProof })}
+                  />
+                </>
+              ))}
+            </div>
+
+            <div className="pt-6 md:p-8 md:text-left space-y-1">
+              <div className="font-bold text-lg">
+                <div className="text-slate-700 dark:text-slate-800">
+                  Outputs
+                </div>
+              </div>
+              <div className="divide-y divide-slate-600/75 divide-dashed">
+                {result._source.outputs.map((output) => (
+                  <div>
+                    <TransactionBox title="boxId" content={output.boxId} />
+                    <TransactionBox title="value" content={output.value} />
+                    <TransactionBox
+                      title="ergoTree"
+                      content={output.ergoTree}
+                    />
+                    <TransactionBox
+                      title="creationHeight"
+                      content={output.creationHeight}
+                    />
+                    <TransactionBox
+                      title="transactionId"
+                      content={output.transactionId}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <TransactionBox title="Size" content={result._source.size} />
+          </div>
         </>
       ) : (
         <div className="m-3 text-lg">Block Not Exists</div>

@@ -5,6 +5,11 @@ import MempoolResult from "../../components/MempoolResults";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+const { Client } = require("@elastic/elasticsearch");
+const client = new Client({
+  node: "http://localhost:9200",
+});
+
 export default function Blocks({ results }) {
   const [total, setTotal] = useState(0);
 
@@ -30,15 +35,33 @@ export default function Blocks({ results }) {
 }
 
 export async function getServerSideProps(context) {
+  // const id = context.query.id;
+  // // get block with height range (fromHeight, toHeight)
+  // const request = await fetch(
+  //   "http://localhost:9052/blocks/lastHeaders/10"
+  // ).then((response) => response.json());
+
+  // return {
+  //   props: {
+  //     results: request,
+  //   },
+  // };
   const id = context.query.id;
-  // get block with height range (fromHeight, toHeight)
-  const request = await fetch(
-    "http://localhost:9052/blocks/lastHeaders/10"
-  ).then((response) => response.json());
+  // get blocks from elasticsearch
+  const { body } = await client.search({
+    index: "ergo_block_header",
+    body: {
+      query: {
+        match_all: {},
+      },
+    },
+  });
+
+  const results = body.hits.hits;
 
   return {
     props: {
-      results: request,
+      results: results,
     },
   };
 }
