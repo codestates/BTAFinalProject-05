@@ -8,10 +8,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
-  const [keyword, setKeyword] = useState(null);
-
   return (
     <>
       <div className="text-gray-700 flex flex-col items-center p-6 select-none sm:flex-row justify-between">
@@ -23,6 +22,7 @@ export default function Header() {
             height={50}
           />
         </Link>
+
         <div className="flex">
           <Link href="/">
             <HeaderIcon Icon={HomeIcon} title="Home" />
@@ -36,21 +36,7 @@ export default function Header() {
           <HeaderIcon Icon={AtSymbolIcon} title="Address" />
         </div>
       </div>
-      <div className="flex sm:flex-row justify-center">
-        <input
-          type="text"
-          placeholder="Search Block Id, Transaction, Address"
-          className="justify-center input input-bordered w-full max-w-xl"
-          onChange={(e) => {
-            setKeyword(e.target.value);
-          }}
-          onKeyUp={(e) => {
-            if (e.key == "Enter") {
-              console.log(keyword);
-            }
-          }}
-        />
-      </div>
+      <SearchBar />
     </>
   );
 }

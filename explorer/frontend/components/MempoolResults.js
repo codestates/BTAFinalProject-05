@@ -32,9 +32,10 @@ export default function MempoolResult({ results }) {
 export async function getServerSideProps(context) {
   const id = context.query.id;
   // get block with height range (fromHeight, toHeight)
-  const request = await fetch(
-    "http://localhost:9052/transactions/unconfirmed?limit=50&offset=0"
-  ).then((response) => response.json());
+  const node = process.env.ERGO_NODE;
+  const url = `${node}/transactions/unconfirmed?limit=50&offset=0`;
+  console.log(url);
+  const request = await fetch(url).then((response) => response.json());
 
   return {
     props: {

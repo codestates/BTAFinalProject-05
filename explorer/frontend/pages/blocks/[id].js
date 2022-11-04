@@ -4,7 +4,13 @@ import Header from "../../components/header";
 
 const { Client } = require("@elastic/elasticsearch");
 const client = new Client({
-  node: "http://localhost:9200",
+  node: process.env.ES_NODE,
+  auth: {
+    apiKey: {
+      id: process.env.ES_ID,
+      api_key: process.env.ES_API_KEY,
+    },
+  },
 });
 
 export default function BlockDetailPage({ result }) {
@@ -17,17 +23,6 @@ export default function BlockDetailPage({ result }) {
 }
 
 export async function getServerSideProps(context) {
-  // const id = context.query.id;
-  // // console.log(id);
-  // const request = await fetch(`http://localhost:9052/blocks/${id}`).then(
-  //   (response) => response.json()
-  // );
-  // // console.log(request);
-  // return {
-  //   props: {
-  //     result: request,
-  //   },
-  // };
   const id = context.query.id;
   // get transaction from elasticsearch
   const { body } = await client.search({

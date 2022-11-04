@@ -4,6 +4,7 @@ import BlockResults from "../../components/BlockResults";
 import MempoolResult from "../../components/MempoolResults";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import TransactionResults from "../../components/TransactionResults";
 
 const { Client } = require("@elastic/elasticsearch");
 const client = new Client({
@@ -16,30 +17,37 @@ const client = new Client({
   },
 });
 
-export default function Blocks({ results }) {
+export default function Transactions({ results }) {
+  const [total, setTotal] = useState(0);
+
+  console.log(results);
+
   return (
     <div>
       <Header />
-
-      <BlockResults results={results} />
+      <TransactionResults results={results} />
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
   const id = context.query.id;
-  // get blocks from elasticsearch
+  const new_id = id.replaceAll('"', "");
+  console.log(new_id);
+  // get transaction from elasticsearch
   const { body } = await client.search({
-    index: "ergo_block_header",
+    index: "ergo_transaction",
     body: {
       query: {
-        match_all: {},
+        match: {
+          id: new_id,
+        },
       },
-      size: 20,
     },
   });
 
   const results = body.hits.hits;
+  console.log(results);
 
   return {
     props: {

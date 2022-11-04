@@ -17,10 +17,12 @@ const client = new Client({
 });
 
 export default function Blocks({ results }) {
+  const [total, setTotal] = useState(0);
+
   return (
     <div>
       <Header />
-
+      <div className="m-8 text-lg"># Total Block : {total}</div>
       <BlockResults results={results} />
     </div>
   );
@@ -29,13 +31,17 @@ export default function Blocks({ results }) {
 export async function getServerSideProps(context) {
   const id = context.query.id;
   // get blocks from elasticsearch
+  console.log(id);
+  const new_id = id.replaceAll('"', "");
+  console.log(new_id);
   const { body } = await client.search({
     index: "ergo_block_header",
     body: {
       query: {
-        match_all: {},
+        match: {
+          id: new_id,
+        },
       },
-      size: 20,
     },
   });
 
