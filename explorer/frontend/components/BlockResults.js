@@ -1,7 +1,7 @@
 import BlockInfo from "./BlockInfo";
 
 export default function BlockResults({ results }) {
-  console.log(results);
+  // console.log(results);
   return (
     <div className="m-8 flex flex-col ">
       <div className="m-2 text-lg">Latest {results.length} Block</div>

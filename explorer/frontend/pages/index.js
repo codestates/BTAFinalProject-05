@@ -2,13 +2,27 @@ import Head from "next/head";
 import Header from "../components/Header";
 import BlockResults from "../components/BlockResults";
 import MempoolResult from "../components/MempoolResults";
-
-const { Client } = require("@elastic/elasticsearch");
-const client = new Client({
-  node: "http://localhost:9200",
-});
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home({ results }) {
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(0);
+  const getBlocks = async () => {
+    const size = 5;
+    const url =
+      process.env.NEXT_PUBLIC_URL + `/api/blocks?page=${page}&size=${size}`;
+    console.log(url);
+    const blocks = await axios.get(url);
+    setData(blocks.data);
+    // console.log("blocks from useEffect");
+    // console.log(blocks);
+  };
+
+  useEffect(() => {
+    getBlocks();
+  }, []);
+
   return (
     <div>
       <Head>
@@ -18,29 +32,32 @@ export default function Home({ results }) {
       </Head>
       <Header />
 
-      <BlockResults results={results} />
       <MempoolResult />
+      <BlockResults results={data} />
+      <div className="ml-8">
+        <div className="btn-group grid grid-cols-12">
+          {page}
+          <button
+            className="btn btn-outline"
+            onClick={() => {
+              if (page == 0) return;
+              setPage(page - 1);
+              getBlocks();
+            }}
+          >
+            Previous page
+          </button>
+          <button
+            className="btn btn-outline"
+            onClick={() => {
+              setPage(page + 1);
+              getBlocks();
+            }}
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  const id = context.query.id;
-  // get blocks from elasticsearch
-  const { body } = await client.search({
-    index: "ergo_block_header",
-    body: {
-      query: {
-        match_all: {},
-      },
-    },
-  });
-
-  const results = body.hits.hits;
-
-  return {
-    props: {
-      results: results,
-    },
-  };
 }

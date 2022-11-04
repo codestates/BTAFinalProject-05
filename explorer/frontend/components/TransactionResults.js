@@ -6,7 +6,7 @@ export default function TransactionResults({ results }) {
     <div className="m-8 flex flex-col ">
       <div className="m-2 text-lg">{results.length} Transactions</div>
       <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
+        <table className="table table-zebra">
           <thead>
             <tr>
               <th>ID</th>
