@@ -41,7 +41,7 @@ export const ERGO_ENDPOINTS = {
          * @param none
          * @returns ["5tG8PwiWK6    y9tYDCZDDjQufE7QJmoU9n2uMtc7y3QF8hSKsoPwcw"]
          */
-        GET_ADDRESSES: `${HOST}/wallet/addresses`,
+        ADDRESSES: `${HOST}/wallet/addresses`,
 
         /**
          * @description 지갑을 잠금상태로 변경한다.
@@ -66,10 +66,18 @@ export const ERGO_ENDPOINTS = {
          * @method GET
          * @param none
          * @returns {
-         *   "isInitialized": true,
+         *   "isInitialized": true, 지갑 데이터가 있으나 잠겨있는 경우.
          *   "isUnlocked": false,
          *   "changeAddress": "",
          *   "walletHeight": 667,
+         *   "error": ""
+         * }
+         *
+         * @returns {
+         *   "isInitialized": false, // created or restored된 지갑 데이터가 없을 경우!
+         *   "isUnlocked": false,
+         *   "changeAddress": "",
+         *   "walletHeight": 0,
          *   "error": ""
          * }
          */
