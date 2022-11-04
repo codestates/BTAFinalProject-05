@@ -19,7 +19,8 @@ export const useWalletStatus = () => {
         getWalletStatus,
         {
             refetchOnWindowFocus: false,
-            staleTime: 3000
+            staleTime: 3000,
+            retry: 1,
         }
     );
 }
