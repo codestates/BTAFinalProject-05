@@ -10,6 +10,7 @@ const ENDPOINTS = {
 };
 
 export const ERGO_ENDPOINTS = {
+    PING: `${HOST}/ping`,
     WALLET: {
         /**
          * @description 새 지갑을 만들고 random seed를 return함.
