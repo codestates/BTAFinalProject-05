@@ -4,6 +4,9 @@
 .code/
 .idea/
 
+# private
+/private
+
 # dependencies
 node_modules
 /.pnp
