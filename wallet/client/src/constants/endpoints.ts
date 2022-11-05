@@ -1,4 +1,4 @@
-const PORT = 3200;
+const PORT = 9052;
 const HOST = `http://localhost:${PORT}`;
 
 const ENDPOINTS = {

@@ -15,7 +15,7 @@ export const useTransfer = (toAddress: string | null, value: string | null) => {
             requests: [{
                 address: toAddress,
                 assets: [],
-                value: parseInt(value ?? '0')
+                value: (parseInt(value ?? '0') * 10 ** 9)
             }]
         }, config);
         return data;
