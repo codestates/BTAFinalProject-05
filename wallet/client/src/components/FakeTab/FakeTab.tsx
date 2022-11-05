@@ -1,12 +1,11 @@
-import {useCallback, useMemo} from "react";
-import {Box, Tooltip} from '@mui/material';
+import {Box} from '@mui/material';
 import {
     CurrencyBitcoin as CurrencyBitcoinIcon,
     IosShare as IosShareIcon,
+    Receipt as ReceiptIcon
 } from '@mui/icons-material';
 
 import type {FC} from "react";
-import type {BoxProps} from '@mui/material';
 import {FakeTabItem} from "./FakeTabItem";
 
 export interface FakeTabProps {
@@ -23,9 +22,14 @@ const TABS = [
         label: '송금하기',
         path: '/send',
         icon: IosShareIcon,
+    },
+    {
+        label: '히스토리',
+        path: '/wallet',
+        icon: ReceiptIcon,
+        disabled: true,
     }
-]
-
+];
 
 export const FakeTab: FC<FakeTabProps> = (props) => {
     const {activeIndex} = props;
@@ -37,7 +41,7 @@ export const FakeTab: FC<FakeTabProps> = (props) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                gap: 3,
+                gap: 2,
                 '&:hover': {
                     cursor: 'pointer',
                     opacity: 0.8,

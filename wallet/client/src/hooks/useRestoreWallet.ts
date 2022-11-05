@@ -3,21 +3,25 @@ import {useQuery} from "react-query";
 import {useEnv} from "./useEnv";
 import {ERGO_ENDPOINTS} from "../constants";
 
-import type {WalletUnlockErrorResponse, WalletUnlockSuccessResponse} from "../types/api";
+import type {RestoreWalletSuccessResponse, RestoreWalletErrorResponse} from "../types/api";
 
-export const useWalletUnlock = () => {
+export const useRestoreWallet = (mnemonic: string) => {
     const [api_key, pass] = useEnv(['API_KEY', 'PASSWORD']);
 
-    const unlockWallet = async () => {
+    const restoreWallet = async () => {
         const config = {headers: {'Content-Type': 'application/json;charset=UTF-8', api_key}}
-        const {data} = await axios.post(ERGO_ENDPOINTS.WALLET.UNLOCK, {pass}, config);
-        console.log(data);
+        const {data} = await axios.post(ERGO_ENDPOINTS.WALLET.RESTORE, {
+            pass,
+            mnemonicPass: pass,
+            mnemonic,
+            usePre1627KeyDerivation: true // <- ?
+        }, config);
         return data;
     };
 
-    return useQuery<WalletUnlockSuccessResponse, WalletUnlockErrorResponse>(
+    return useQuery<RestoreWalletSuccessResponse, RestoreWalletErrorResponse>(
         'getWalletStatus',
-        unlockWallet,
+        restoreWallet,
         {
             refetchOnWindowFocus: false,
             staleTime: 3000,

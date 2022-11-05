@@ -24,6 +24,8 @@ type GetBalanceSuccessResponse = {
     assets: Array<IToken>;
 };
 type GetWalletAddressesSuccessResponse = string[];
+type CreateWalletSuccessResponse = {mnemonic: string};
+type RestoreWalletSuccessResponse = 'OK';
 
 /**
  * error types
@@ -32,4 +34,6 @@ type WalletStatusErrorResponse = CommonErrorResponse;
 type WalletUnlockErrorResponse = CommonErrorResponse;
 type GetBalanceErrorResponse = CommonErrorResponse;
 type GetWalletAddressesErrorResponse = CommonErrorResponse;
+type CreateWalletErrorResponse = CommonErrorResponse;
+type RestoreWalletErrorResponse = CommonErrorResponse;
 

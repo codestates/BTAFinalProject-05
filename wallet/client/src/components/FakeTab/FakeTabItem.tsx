@@ -9,14 +9,15 @@ export interface FakeTabItemProps {
     label: string;
     path: string;
     icon: SvgIconComponent;
+    disabled?: boolean;
 }
 
 export const FakeTabItem: FC<FakeTabItemProps> = (props) => {
-    const {active = false, label, path, icon: Icon} = props;
+    const {active = false, label, path, icon: Icon, disabled = false} = props;
     const navigate = useNavigate();
     return (
         <Box
-            onClick={() => {navigate(path)}}
+            onClick={() => {!disabled && navigate(path)}}
             mx={2}
             sx={{
                 display: 'flex',

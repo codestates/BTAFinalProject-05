@@ -4,57 +4,34 @@ import {Box, Typography} from "@mui/material";
 import {useMutation} from "react-query";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, PasswordInput} from "../components";
-import {ENDPOINTS} from "../constants";
+import {ENDPOINTS, STRINGS} from "../constants";
 import {useSetRecoilState} from "recoil";
 import {GlobalState} from "../states";
+import {useCreateWallet} from "../hooks";
+
+const {STATUS: {OK, WALLET_ALREADY_SET}} = STRINGS;
 
 const CreateWallet = () => {
-    const navigate =  useNavigate();
+    const navigate = useNavigate();
 
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
     const setGlobalState = useSetRecoilState(GlobalState);
 
-    const getMnemonic = async () => {
-        try {
-            const res = await fetch(ENDPOINTS.NEW_MNEMONIC);
-            const {data: mnemonicPhrase} = await res.json();
-
-            const res2 = await fetch(ENDPOINTS.NEW_WALLET, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({password, mnemonicPhrase})
-            });
-            const {data: {walletAddress}} = await res2.json();
-
-            console.log({mnemonicPhrase, walletAddress});
-            return {mnemonicPhrase, walletAddress, password};
-        } catch (e) {
-            console.error(e);
-        }
-    };
-
-    const {data, mutate, isLoading, error} = useMutation(getMnemonic, {});
-
-    const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
-    const passwordConfirmError = useMemo(() => passwordConfirm.length >0 &&  password !== passwordConfirm, [password, passwordConfirm]);
+    const passwordError = useMemo(() => false, []);
+    const passwordConfirmError = useMemo(() => false, []);
+    const {refetch: createWallet, data, error} = useCreateWallet(password);
 
     useEffect(() => {
-        const {mnemonicPhrase: mnemonic, walletAddress: address, password} = data || {};
-        if (data) {
-            console.log(data);
-            setGlobalState({address, mnemonic, password: password ?? ''})
-
-            if (chrome?.storage?.local) {
-                chrome.storage.local.set({data: {mnemonic, address, password}}, function() {
-                    console.log('value set to '+JSON.stringify({mnemonic, address}));
-                });
-            }
-            navigate('/seed-reveal');
+        // TODO: 에러처리 리팩토링
+        if(error?.response?.data?.detail === WALLET_ALREADY_SET) {
+            window.confirm('계정이 이미 있습니다. 기존 계정으로 로그인합니다.') && navigate('/wallet');
         }
-    }, [setGlobalState, navigate, data, isLoading, error]);
+    }, [error]);
+
+    useEffect(() => {
+        console.log({data});
+    }, [data])
 
     return (
         <DefaultLayout logo>
@@ -102,7 +79,7 @@ const CreateWallet = () => {
                             navigate(-1);
                         }}
                         onNextButtonClick={() => {
-                            mutate();
+                            createWallet();
                         }}
                         disabled={password.length === 0 || passwordError || passwordConfirmError}
                     />
