@@ -14,7 +14,7 @@
 * Ergo image container가 띄워져 있어야 합니다. (port `9052`)
 * wallet/**proxy**에서 `npm run start` 로 proxy 시작
 * wallet/**client**에서 `npm run start` 후 localhost:3000/test page에서 확인 가능
-* 🚨**(중요!!!)** clienet/**.env**에 api key와 password를 입력해야 정상 동작
+* 🚨 **(중요!!!)** clienet/**.env**에 api key와 password를 입력해야 정상 동작
 
 ## Getting Started
 
