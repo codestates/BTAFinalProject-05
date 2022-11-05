@@ -5,20 +5,9 @@ import {useEffect, useMemo, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAddresses} from "../hooks";
 import {useTransfer} from "../hooks/useTransfer";
+import {OBJECTS} from "../constants";
 
-const NETWORKS = [
-    {
-        label: 'ergo (testnet)',
-        value: 'ergo',
-        disabled: false,
-    },
-    {
-        label: 'ergo (Mainnet)',
-        value: 'ergo Main',
-        disabled: true,
-    },
-];
-
+const {NETWORKS} = OBJECTS;
 const useQueryParams = () => {
     const {search} = useLocation();
 
@@ -37,7 +26,7 @@ const SendConfirm = () => {
     const {address, amount} = useQueryParams();
     const {ticker} = useParams();
 
-    const {refetch: transfer, data} = useTransfer(address, amount);
+    const {refetch: transfer, data, isRefetching, isLoading} = useTransfer(address, amount);
 
     useEffect(() => {
         console.log(data);
@@ -113,6 +102,7 @@ const SendConfirm = () => {
                             onNextButtonClick={() => {
                                 transfer();
                             }}
+                            loading={isLoading || isRefetching}
                             disabled={false}
                         />
                     </Box>

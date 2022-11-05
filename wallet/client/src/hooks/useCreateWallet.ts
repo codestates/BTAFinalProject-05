@@ -1,16 +1,16 @@
 import axios from "axios";
 import {useQuery} from "react-query";
-import {useEnv} from "./useEnv";
-import {ERGO_ENDPOINTS} from "../constants";
+import {useRecoilValue} from "recoil";
+import {ENDPOINTS} from "../constants";
+import {ErgoState} from "../states";
 
 import type {CreateWalletSuccessResponse, CreateWalletErrorResponse} from "../types/api";
 
 export const useCreateWallet = (pass: string) => {
-    const [api_key] = useEnv(['API_KEY', 'PASSWORD']);
-
+    const {api_key} = useRecoilValue(ErgoState);
     const createWallet = async () => {
         const config = {headers: {'Content-Type': 'application/json;charset=UTF-8', api_key}}
-        const {data} = await axios.post(ERGO_ENDPOINTS.WALLET.INIT, {
+        const {data} = await axios.post(ENDPOINTS.WALLET.INIT, {
             pass,
             mnemonicPass: pass,
         }, config);

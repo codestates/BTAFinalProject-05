@@ -8,19 +8,9 @@ import {addPrefixToAddress} from "../utils";
 import {useRecoilValue} from "recoil";
 import {ErgoState} from "../states";
 import {useBalances} from "../hooks";
+import {OBJECTS} from "../constants";
 
-const NETWORKS = [
-    {
-        label: 'ergo (testnet)',
-        value: 'ergo',
-        disabled: false,
-    },
-    {
-        label: 'ergo (Mainnet)',
-        value: 'ergo Main',
-        disabled: true,
-    },
-];
+const {NETWORKS} = OBJECTS;
 
 const SendInput = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);

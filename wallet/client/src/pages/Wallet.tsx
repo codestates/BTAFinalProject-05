@@ -5,20 +5,9 @@ import {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
 import {ErgoState} from "../states";
 import {useAddresses, useBalances, useWalletUnlock} from "../hooks";
+import {OBJECTS} from "../constants";
 
-const NETWORKS = [
-    {
-        label: 'ergo (testnet)',
-        value: 'ergo',
-        disabled: false,
-    },
-    {
-        label: 'ergo (Mainnet)',
-        value: 'ergo Main',
-        disabled: true,
-    },
-];
-
+const {NETWORKS} = OBJECTS;
 const BALANCES = [
     {
         name: 'ergo',
@@ -40,7 +29,7 @@ const Wallet = () => {
             getAddresses();
             getBalance();
         });
-    }, [data, unlock, getAddresses]);
+    }, [data, unlock, getAddresses, getBalance]);
 
     useEffect(() => {
         if (typeof firstAddress?.[0] === 'string') {

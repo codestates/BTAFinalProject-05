@@ -1,16 +1,17 @@
 import axios from "axios";
 import {useQuery} from "react-query";
-import {useEnv} from "./useEnv";
-import {ERGO_ENDPOINTS} from "../constants";
+import {ENDPOINTS} from "../constants";
+import {useRecoilValue} from "recoil";
+import {ErgoState} from "../states";
 
 import type {GetBalanceErrorResponse, GetBalanceSuccessResponse} from "../types/api";
 
 export const useBalances = () => {
-    const [api_key] = useEnv(['API_KEY']);
+    const {api_key} = useRecoilValue(ErgoState);
 
     const getWalletStatus = async () => {
         const config = {headers: {api_key}};
-        const {data} = await axios.get(ERGO_ENDPOINTS.WALLET.BALANCE, config);
+        const {data} = await axios.get(ENDPOINTS.WALLET.BALANCE, config);
         return data;
     };
 

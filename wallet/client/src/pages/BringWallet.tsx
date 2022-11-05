@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput, PasswordInput} from "../components";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {STRINGS} from "../constants";
 import {useRestoreWallet} from "../hooks";
 

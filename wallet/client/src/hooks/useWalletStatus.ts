@@ -1,21 +1,21 @@
 import axios from "axios";
+import {useRecoilValue} from "recoil";
 import {useQuery} from "react-query";
-import {useEnv} from "./useEnv";
-import {ERGO_ENDPOINTS} from "../constants";
+import {ENDPOINTS} from "../constants";
+import {ErgoState} from "../states";
 
 import type {WalletStatusErrorResponse, WalletStatusSuccessResponse} from "../types/api";
 
 export const useWalletStatus = () => {
-    const [api_key] = useEnv(['API_KEY']);
-
+    const {api_key} = useRecoilValue(ErgoState);
     const getWalletStatus = async () => {
         const config = {headers: {api_key}};
-        const {data} = await axios.get(ERGO_ENDPOINTS.WALLET.STATUS, config);
+        const {data} = await axios.get(ENDPOINTS.WALLET.STATUS, config);
         return data;
     };
 
     return useQuery<WalletStatusSuccessResponse, WalletStatusErrorResponse>(
-        'getWalletStatus',
+        ['getWalletStatus', api_key],
         getWalletStatus,
         {
             refetchOnWindowFocus: false,

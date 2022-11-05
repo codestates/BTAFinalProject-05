@@ -2,14 +2,6 @@ const PORT = 9052;
 const HOST = `http://localhost:${PORT}`;
 
 const ENDPOINTS = {
-    NEW_MNEMONIC: `${HOST}/mnemonic`,
-    NEW_WALLET: `${HOST}/create`,
-    BALANCE: `${HOST}/balance`,
-    TRANSFER: `${HOST}/transfer`,
-    LOGIN: `${HOST}/login`,
-};
-
-export const ERGO_ENDPOINTS = {
     PING: `${HOST}/ping`,
     WALLET: {
         /**
