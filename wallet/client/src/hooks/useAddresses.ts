@@ -19,7 +19,6 @@ export const useAddresses = () => {
         getAddresses,
         {
             refetchOnWindowFocus: false,
-            staleTime: 30000,
             retry: 1,
         }
     );

@@ -2,9 +2,9 @@ import {WalletLayout} from "../layouts";
 import {Avatar, Box} from "@mui/material";
 import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useEffect, useState} from "react";
-import {useRecoilValue, useSetRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {ErgoState} from "../states";
-import {useAddresses, useBalance, useBalances, useWalletUnlock} from "../hooks";
+import {useAddresses, useBalances, useWalletUnlock} from "../hooks";
 
 const NETWORKS = [
     {
@@ -31,12 +31,14 @@ const Wallet = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const setErgoState = useSetRecoilState(ErgoState);
     const {refetch: unlock, data} = useWalletUnlock();
-    const {data: firstAddress = []} = useAddresses();
-    const {data: DATA, isLoading} = useBalances();
+    const {refetch: getAddresses, data: firstAddress = []} = useAddresses();
+    const {data: DATA} = useBalances();
 
     useEffect(() => {
-        console.log(data);
-        unlock().then(d => console.log(d));
+        unlock().then(() => {
+            console.log('unlock 성공');
+            getAddresses();
+        });
     }, [data]);
 
     useEffect(() => {
