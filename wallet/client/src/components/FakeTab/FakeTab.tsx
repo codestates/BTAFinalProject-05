@@ -29,8 +29,7 @@ const TABS = [
         icon: ReceiptIcon,
         disabled: true,
     }
-]
-
+];
 
 export const FakeTab: FC<FakeTabProps> = (props) => {
     const {activeIndex} = props;

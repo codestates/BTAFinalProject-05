@@ -52,6 +52,7 @@ const STRINGS = {
     STATUS: {
         OK: 'OK',
         WALLET_ALREADY_UNLOCKED: 'Wallet already unlocked',
+        WALLET_ALREADY_SET: 'Wallet is already initialized or testMnemonic is set. Clear current secret to re-init it.'
     }
 }
 

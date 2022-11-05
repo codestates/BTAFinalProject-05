@@ -34,7 +34,7 @@ export const ERGO_ENDPOINTS = {
          * }
          * @returns {"mnemonic": "string"}
          */
-        RESTORE: `${HOST}/wallet/init`,
+        RESTORE: `${HOST}/wallet/restore`,
 
         /**
          * @description 지갑 주소를 return한다.
