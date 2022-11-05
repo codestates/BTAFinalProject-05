@@ -1,13 +1,13 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {SendCoinInput} from "../components";
 import {addPrefixToAddress} from "../utils";
 import {useRecoilValue} from "recoil";
 import {ErgoState} from "../states";
-import {useBalance} from "../hooks";
+import {useBalance, useBalances} from "../hooks";
 
 const NETWORKS = [
     {
@@ -32,7 +32,7 @@ const SendInput = () => {
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState('')
 
-    const {data: balance} = useBalance(myAddress);
+    const {data} = useBalances();
 
     // const addressError = useMemo(() => {
     //     return false;
@@ -40,18 +40,18 @@ const SendInput = () => {
     //     // return address.length > 0 && addr.length !== 42;
     // }, [address]);
     //
-    // const amountError = useMemo(() => {
-    //     const parsedAmount = parseFloat(amount);
-    //     const parsedBalance = parseFloat(balance);
-    //
-    //     return (
-    //         (amount.length > 0 && (isNaN(parsedAmount) || parsedAmount <=0))
-    //         || (parsedBalance < parsedAmount)
-    //     );
-    // }, [amount, balance]);
+    const amountError = useMemo(() => {
+        const parsedAmount = parseFloat(amount);
+        const parsedBalance = (data?.balance || 0) / 10 ** 9;
+
+        return (
+            (amount.length > 0 && (isNaN(parsedAmount) || parsedAmount <=0))
+            || (parsedBalance < parsedAmount)
+        );
+    }, [amount, data]);
 
     const addressError = false;
-    const amountError = false;
+    // const amountError = false;
 
     return (
         <WalletLayout
@@ -119,7 +119,7 @@ const SendInput = () => {
                             />
                             <SendCoinInput
                                 inputType="amount"
-                                label={`금액${amountError ? ' (잔액: ' + balance + ')' : ''}`}
+                                label={`금액 (잔액: ${(data?.balance || 0) / 10 ** 9})`}
                                 placeholder="0"
                                 variant="outlined"
                                 value={amount}
