@@ -1,5 +1,4 @@
 export {useAddresses} from './useAddresses';
-export {useBalance} from './useBalance';
 export {useBalances} from './useBalances';
 export {useCreateWallet} from './useCreateWallet';
 export {useEnv} from './useEnv';

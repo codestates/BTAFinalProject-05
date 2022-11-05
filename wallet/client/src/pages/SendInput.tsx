@@ -7,7 +7,7 @@ import {SendCoinInput} from "../components";
 import {addPrefixToAddress} from "../utils";
 import {useRecoilValue} from "recoil";
 import {ErgoState} from "../states";
-import {useBalance, useBalances} from "../hooks";
+import {useBalances} from "../hooks";
 
 const NETWORKS = [
     {

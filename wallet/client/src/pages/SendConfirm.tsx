@@ -3,10 +3,6 @@ import {Avatar, Box, Typography} from "@mui/material";
 import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useEffect, useMemo, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {GlobalState} from "../states";
-import {useRecoilValue} from "recoil";
-import {ENDPOINTS} from "../constants";
-import {useQuery} from "react-query";
 import {useAddresses} from "../hooks";
 import {useTransfer} from "../hooks/useTransfer";
 
@@ -36,7 +32,6 @@ const useQueryParams = () => {
 
 const SendConfirm = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
-    const {password, mnemonic} = useRecoilValue(GlobalState);
     const {data: myAddresses = []} = useAddresses();
     const navigate = useNavigate();
     const {address, amount} = useQueryParams();
@@ -52,6 +47,7 @@ const SendConfirm = () => {
             navigate(`/all-set?txId=${data}`, {state: {action: 'transfer'}});
         }
     }, [data, navigate]);
+
     return (
         <WalletLayout
             topNode={
