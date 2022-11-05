@@ -1,22 +1,18 @@
 import {useEffect, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
-import {useMutation} from "react-query";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, PasswordInput} from "../components";
-import {ENDPOINTS, STRINGS} from "../constants";
-import {useSetRecoilState} from "recoil";
-import {GlobalState} from "../states";
+import {STRINGS} from "../constants";
 import {useCreateWallet} from "../hooks";
 
-const {STATUS: {OK, WALLET_ALREADY_SET}} = STRINGS;
+const {STATUS: {WALLET_ALREADY_SET}} = STRINGS;
 
 const CreateWallet = () => {
     const navigate = useNavigate();
 
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
-    const setGlobalState = useSetRecoilState(GlobalState);
 
     const passwordError = useMemo(() => false, []);
     const passwordConfirmError = useMemo(() => false, []);

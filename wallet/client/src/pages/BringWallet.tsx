@@ -3,11 +3,8 @@ import {Box, Typography} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput, PasswordInput} from "../components";
 import {useEffect, useMemo, useState} from "react";
-import {ENDPOINTS, STRINGS} from "../constants";
-import {useMutation} from "react-query";
-import {useSetRecoilState} from "recoil";
-import {GlobalState} from "../states";
-import {useRestoreWallet, useWalletUnlock} from "../hooks";
+import {STRINGS} from "../constants";
+import {useRestoreWallet} from "../hooks";
 
 const {STATUS: {OK, WALLET_ALREADY_SET}} = STRINGS;
 
@@ -17,13 +14,10 @@ const BringWallet = () => {
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
-    const setGlobalState = useSetRecoilState(GlobalState);
-
-    // const seedPhraseError = useMemo(() => seedPhrase.length > 0 && seedPhrase.split(' ').length !== 12, [seedPhrase]);
     const seedPhraseError = useMemo(() => false, [seedPhrase]);
     const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
     const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
-    const {refetch: restore, data, error} = useRestoreWallet(seedPhrase);
+    const {refetch: restore, error} = useRestoreWallet(seedPhrase);
 
     useEffect(() => {
         // TODO: 에러처리 리팩토링
@@ -86,7 +80,7 @@ const BringWallet = () => {
                             navigate(-1);
                         }}
                         onNextButtonClick={() => {
-                            restore().then(({data}) => {
+                            restore().then(({data}: any) => {
                                 data === OK && navigate('/wallet');
                             });
                         }}
