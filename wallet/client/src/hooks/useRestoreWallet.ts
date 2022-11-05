@@ -1,14 +1,12 @@
 import axios from "axios";
 import {useQuery} from "react-query";
 import {useRecoilValue} from "recoil";
-import {useEnv} from "./useEnv";
 import {ENDPOINTS} from "../constants";
 import {ErgoState} from "../states";
 
 import type {RestoreWalletSuccessResponse, RestoreWalletErrorResponse} from "../types/api";
 
-export const useRestoreWallet = (mnemonic: string) => {
-    const [pass] = useEnv(['PASSWORD']);
+export const useRestoreWallet = (mnemonic: string, pass: string) => {
     const {api_key} = useRecoilValue(ErgoState);
 
     const restoreWallet = async () => {
