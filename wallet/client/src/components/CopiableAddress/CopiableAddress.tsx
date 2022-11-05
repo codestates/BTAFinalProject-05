@@ -13,7 +13,7 @@ export interface CopiableAddressProps {
 export const CopiableAddress: FC<CopiableAddressProps> = (props) => {
     const {address} = props;
     const shortenedAddress = useMemo(() => {
-        const addr = /0x/.test(address) ? address : `0x${address}`;
+        const addr = address ?? '';
 
         return `${addr.substring(0, 6)}...${addr.substring(addr.length - 4)}`
     }, [address]);

@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {RecoilRoot} from 'recoil';
 import {BrowserRouter} from "react-router-dom";
 import {Box, createTheme, CssBaseline, IconButton, ThemeProvider} from "@mui/material";
@@ -6,10 +6,13 @@ import {Brightness4 as Brightness4Icon, Brightness7 as Brightness7Icon} from '@m
 import {ColorModeContext} from './contexts';
 import {QueryClient, QueryClientProvider} from "react-query";
 import Routes from './Routes';
+import {useProxyCheck} from "./hooks";
 
 function App() {
     const queryClient = new QueryClient();
     const [mode, setMode] = useState<'light' | 'dark'>('light');
+    const {on} = useProxyCheck();
+
     const colorMode = useMemo(() => ({
         toggleColorMode: () => {
             setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
@@ -24,6 +27,12 @@ function App() {
             }
         ), [mode]
     );
+
+    useEffect(() => {
+        if (!on) {
+            alert('proxy 서버를 확인해 주세요.');
+        }
+    }, [on]);
 
     return (
         <RecoilRoot>

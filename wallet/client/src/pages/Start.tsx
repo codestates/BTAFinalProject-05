@@ -4,25 +4,15 @@ import {DefaultLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
 import {FullButton} from "../components";
-import {useSetRecoilState} from "recoil";
-import {GlobalState} from "../states";
+import {useWalletStatus} from "../hooks";
 
 const Start = () => {
     const navigate = useNavigate();
-    const setGlobalState = useSetRecoilState(GlobalState);
-    // mnemonic이 있으면 WelcomeBack page로 이동.
+    const {data, isLoading, error} = useWalletStatus();
+
     useEffect(() => {
-        if (chrome?.storage?.local) {
-            chrome.storage.local.get('data', function ({data}) {
-                if (!data) return;
-
-                const {mnemonic, address, password} = data;
-                setGlobalState({mnemonic, address, password});
-
-                navigate('/welcome-back');
-            });
-        }
-    }, [navigate, setGlobalState]);
+        data?.isInitialized && navigate('/welcome-back');
+    }, [data]);
 
     return (
         <DefaultLayout>
@@ -45,10 +35,10 @@ const Start = () => {
                     src="/ergo_logo_192.png"
                 />
                 <Box>
-                    <Box mt={2} display="flex"  flexDirection="column" alignItems="center">
+                    <Box mt={2} display="flex" flexDirection="column" alignItems="center">
                         <Typography variant="h6">{`${STRINGS.GLOBAL.PROJECT_NAME} 방문을 환영합니다.`}</Typography>
                     </Box>
-                    <Box width="100%" display="flex"  flexDirection="column" alignItems="center">
+                    <Box width="100%" display="flex" flexDirection="column" alignItems="center">
                         <Typography variant="body2">{STRINGS.GLOBAL.PROJECT_DESCRIPTION}</Typography>
                     </Box>
                 </Box>

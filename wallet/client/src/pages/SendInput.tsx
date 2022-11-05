@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {SendCoinInput} from "../components";
 import {addPrefixToAddress} from "../utils";
 import {useRecoilValue} from "recoil";
-import {GlobalState} from "../states";
+import {ErgoState} from "../states";
 import {useBalance} from "../hooks";
 
 const NETWORKS = [
@@ -27,7 +27,7 @@ const SendInput = () => {
     const location = useLocation();
     const {name, ticker} = location.state || {};
     const navigate = useNavigate();
-    const {address: myAddress} = useRecoilValue(GlobalState);
+    const {address: myAddress} = useRecoilValue(ErgoState);
 
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState('')
@@ -35,8 +35,9 @@ const SendInput = () => {
     const {data: balance, isLoading} = useBalance(myAddress);
 
     const addressError = useMemo(() => {
-        const addr = /0x/.test(address) ? address : `0x${address}`;
-        return address.length > 0 && addr.length !== 42;
+        return false;
+        // const addr = /0x/.test(address) ? address : `0x${address}`;
+        // return address.length > 0 && addr.length !== 42;
     }, [address]);
 
     const amountError = useMemo(() => {
@@ -65,7 +66,7 @@ const SendInput = () => {
                             height: 25,
                         }}
                         alt="ERGO"
-                        src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
+                        src={`https://avatars.dicebear.com/api/bottts/${myAddress}.svg`}
                     />
                 </Box>
             }
@@ -91,7 +92,7 @@ const SendInput = () => {
                     <Box display="flex" flexDirection="column" alignItems="center" gap={3} mt={-10} width="100%">
                         <Box display="flex" flexDirection="column" alignItems="center" gap={0.5}>
                             <Box mt={3}>
-                                <Typography fontWeight={700} variant="h6">{`\$${ticker}송금하기`}</Typography>
+                                <Typography fontWeight={700} variant="h6">{`\$${ticker} 송금하기`}</Typography>
                             </Box>
                             <Avatar
                                 sx={{

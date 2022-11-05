@@ -7,6 +7,7 @@ import {GlobalState} from "../states";
 import {useRecoilValue} from "recoil";
 import {ENDPOINTS} from "../constants";
 import {useMutation} from "react-query";
+import {useAddresses} from "../hooks";
 
 const NETWORKS = [
     {
@@ -21,14 +22,6 @@ const NETWORKS = [
     },
 ];
 
-const BALANCES = [
-    {
-        name: 'ergo',
-        ticker: 'ERG',
-        balance: '0.050000',
-    }
-]
-
 const useQueryParams = () => {
     const {search} = useLocation();
 
@@ -42,7 +35,8 @@ const useQueryParams = () => {
 
 const SendConfirm = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
-    const {address: myAddress, password, mnemonic} = useRecoilValue(GlobalState);
+    const {password, mnemonic} = useRecoilValue(GlobalState);
+    const {data: myAddresses = []} = useAddresses();
     const navigate = useNavigate();
     const {address, amount} = useQueryParams();
     const {ticker} = useParams();
@@ -55,7 +49,7 @@ const SendConfirm = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    fromAddress: myAddress,
+                    fromAddress: myAddresses[0],
                     toAddress: address,
                     amount,
                     password,
@@ -85,7 +79,7 @@ const SendConfirm = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <CopiableAddress address={myAddress} />
+                    <CopiableAddress address={myAddresses[0] ?? ''} />
                     <Avatar
                         sx={{
                             width: 25,

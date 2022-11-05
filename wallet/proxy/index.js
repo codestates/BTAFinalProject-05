@@ -19,9 +19,8 @@ app.use(morgan('dev'));
 // CORS
 app.use(cors());
 
-// Info GET endpoint
-app.get('/info', (req, res, next) => {
-  res.send('This is a proxy service which proxies to Billing and Account APIs.');
+app.get('/ping', (req, res, next) => {
+  res.send('Proxy is up and running!');
 });
 
 // TODO: wallet 정보 삭제 test

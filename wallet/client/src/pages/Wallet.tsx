@@ -2,9 +2,9 @@ import {WalletLayout} from "../layouts";
 import {Avatar, Box} from "@mui/material";
 import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useEffect, useState} from "react";
-import {useRecoilValue} from "recoil";
-import {GlobalState} from "../states";
-import {useBalance} from "../hooks";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {ErgoState} from "../states";
+import {useAddresses, useBalance, useBalances} from "../hooks";
 
 const NETWORKS = [
     {
@@ -29,12 +29,19 @@ const BALANCES = [
 
 const Wallet = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
-    const {address} = useRecoilValue(GlobalState);
-    const {data, isLoading} = useBalance(address);
+    const setErgoState = useSetRecoilState(ErgoState);
+    const {data: firstAddress = []} = useAddresses();
+    const {data: DATA, isLoading} = useBalances();
 
     useEffect(() => {
-        console.log(data, isLoading);
-    }, [data, isLoading]);
+        console.log(DATA, isLoading);
+    }, [DATA, isLoading]);
+
+    useEffect(() => {
+        if (typeof firstAddress?.[0] === 'string') {
+            setErgoState({address: firstAddress[0]})
+        }
+    }, [firstAddress]);
 
     return (
         <WalletLayout
@@ -45,14 +52,14 @@ const Wallet = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <CopiableAddress address={address} />
+                    <CopiableAddress address={firstAddress[0]} />
                     <Avatar
                         sx={{
                             width: 25,
                             height: 25,
                         }}
                         alt="ERGO"
-                        src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
+                        src={`https://avatars.dicebear.com/api/bottts/${firstAddress[0]}.svg`}
                     />
                 </Box>
             }
@@ -73,7 +80,7 @@ const Wallet = () => {
                     />
                     <Box width="100%" pt={3}>
                         {BALANCES.map((balance) => {
-                            return <CoinCard key={balance.ticker} {...balance} balance={data} />
+                            return <CoinCard key={balance.ticker} {...balance} balance={DATA?.balance || 0} />
                         })}
                     </Box>
                 </Box>

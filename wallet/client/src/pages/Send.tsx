@@ -4,8 +4,8 @@ import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useRecoilValue} from "recoil";
-import {GlobalState} from "../states";
-import {useBalance} from "../hooks";
+import {ErgoState} from "../states";
+import {useBalances} from "../hooks";
 
 const NETWORKS = [
     {
@@ -31,8 +31,8 @@ const BALANCES = [
 const Send = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const navigate = useNavigate();
-    const {address} = useRecoilValue(GlobalState);
-    const {data, isLoading} = useBalance(address);
+    const {address} = useRecoilValue(ErgoState);
+    const {data: DATA, isLoading} = useBalances();
 
     return (
         <WalletLayout
@@ -81,7 +81,7 @@ const Send = () => {
                                         navigate(balance.ticker, {state: balance});
                                     }}
                                     {...balance}
-                                    balance={data}
+                                    balance={DATA?.balance || '0'}
                                 />
                             );
                         })}

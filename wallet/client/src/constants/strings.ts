@@ -48,6 +48,10 @@ const STRINGS = {
     WELCOME_BACK: {
         DESCRIPTION: '재방문을 환영합니다!',
         WARNING: '비밀번호를 입력해 주세요'
+    },
+    STATUS: {
+        OK: 'OK',
+        WALLET_ALREADY_UNLOCKED: 'Wallet already unlocked',
     }
 }
 

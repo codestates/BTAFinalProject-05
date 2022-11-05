@@ -1,55 +1,28 @@
 import {Link, useNavigate} from "react-router-dom";
 import {DefaultLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
-import {ENDPOINTS, STRINGS} from "../constants";
+import {STRINGS} from "../constants";
 import {FullButton, PasswordInput} from "../components";
-import {useRecoilValue, useSetRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 import {GlobalState} from "../states";
 import {useEffect, useState} from "react";
-import {useMutation} from "react-query";
+import {useEnv, useWalletUnlock} from "../hooks";
+
+const {STATUS: {OK, WALLET_ALREADY_UNLOCKED}} = STRINGS;
 
 const WelcomeBack = () => {
     const navigate = useNavigate();
     const [password, setPassword] = useState<string>('');
-    const {address, password: storedPassword, mnemonic: mnemonicPhrase} = useRecoilValue(GlobalState);
-    const setGlobalState = useSetRecoilState(GlobalState);
-
-    const login = async () => {
-        try {
-            const res = await fetch(ENDPOINTS.LOGIN, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({password, mnemonicPhrase})
-            });
-            return await res.json();
-
-        } catch (e) {
-            console.error(e);
-        }
-    };
-
-    const {data, mutate, isLoading, error} = useMutation(login, {});
+    const [storedPassword] = useEnv(['PASSWORD']);
+    const {address, mnemonic: mnemonicPhrase} = useRecoilValue(GlobalState);
+    const {refetch: unlock, error} = useWalletUnlock();
 
     useEffect(() => {
-        console.log(data);
-        if (data?.success) {
-            setGlobalState({address: data.data.walletAddress, mnemonic: mnemonicPhrase, password: password ?? ''})
-            if (chrome?.storage?.local) {
-                chrome.storage.local.set({
-                    data: {
-                        mnemonic: mnemonicPhrase,
-                        address: data.walletAddress,
-                        password
-                    }
-                }, function () {
-
-                });
-            }
+        // TODO: 에러처리 리팩토링
+        if(error?.response?.data?.detail === WALLET_ALREADY_UNLOCKED) {
             navigate('/wallet');
         }
-    }, [data]);
+    }, [error]);
 
     return (
         <DefaultLayout>
@@ -100,7 +73,9 @@ const WelcomeBack = () => {
                 <Box width="100%">
                     <FullButton
                         onClick={() => {
-                            mutate();
+                            unlock().then(({data}) => {
+                                data === OK && navigate('/wallet');
+                            });
                         }}
                         disabled={password !== storedPassword}
                     >

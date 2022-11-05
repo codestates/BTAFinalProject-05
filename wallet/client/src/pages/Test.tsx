@@ -4,8 +4,8 @@ import {ERGO_ENDPOINTS} from "../constants";
 import axios from "axios";
 
 const {
-    REACT_APP_ERGO_API_KEY: API_KEY = '',
-    REACT_APP_ERGO_PASSWORD: PASSWORD = ''
+    REACT_APP_API_KEY: API_KEY = '',
+    REACT_APP_PASSWORD: PASSWORD = ''
 } = process.env
 
 const Test = () => {
@@ -18,7 +18,7 @@ const Test = () => {
 
     const getAddresses = async () => {
         const config = {headers: {api_key: API_KEY}};
-        const result = await axios.get(ERGO_ENDPOINTS.WALLET.GET_ADDRESSES, config);
+        const result = await axios.get(ERGO_ENDPOINTS.WALLET.ADDRESSES, config);
         console.log(result);
     };
 
