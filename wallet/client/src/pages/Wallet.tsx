@@ -2,8 +2,8 @@ import {WalletLayout} from "../layouts";
 import {Avatar, Box} from "@mui/material";
 import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
 import {useEffect, useState} from "react";
-import {useRecoilValue} from "recoil";
-import {GlobalState} from "../states";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {ErgoState} from "../states";
 import {useAddresses, useBalance, useBalances} from "../hooks";
 
 const NETWORKS = [
@@ -29,13 +29,19 @@ const BALANCES = [
 
 const Wallet = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
-    const {address} = useRecoilValue(GlobalState);
-    const {data: firstAddress = ''} = useAddresses();
+    const setErgoState = useSetRecoilState(ErgoState);
+    const {data: firstAddress = []} = useAddresses();
     const {data: DATA, isLoading} = useBalances();
 
     useEffect(() => {
         console.log(DATA, isLoading);
     }, [DATA, isLoading]);
+
+    useEffect(() => {
+        if (typeof firstAddress?.[0] === 'string') {
+            setErgoState({address: firstAddress[0]})
+        }
+    }, [firstAddress]);
 
     return (
         <WalletLayout
