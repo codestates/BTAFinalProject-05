@@ -2,11 +2,12 @@ import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput, PasswordInput} from "../components";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {STRINGS} from "../constants";
 import {useRestoreWallet} from "../hooks";
 
 const {STATUS: {OK, WALLET_ALREADY_SET}} = STRINGS;
+const MNEMONIC_LENGTH = 15;
 
 const BringWallet = () => {
     const navigate = useNavigate();
@@ -14,11 +15,11 @@ const BringWallet = () => {
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
-    const seedPhraseError = false;
+    const seedPhraseError = seedPhrase.split(' ').length !== MNEMONIC_LENGTH;
     const passwordError = false;
     const passwordConfirmError = false;
 
-    const {refetch: restore, error} = useRestoreWallet(seedPhrase);
+    const {refetch: restore, error} = useRestoreWallet(seedPhrase, password);
 
     useEffect(() => {
         // TODO: 에러처리 리팩토링
@@ -48,7 +49,7 @@ const BringWallet = () => {
                         flexDirection="column"
                     >
                         <MnemonicInput
-                            label={`seed phrase${seedPhraseError ? ' (' + seedPhrase.split(" ").length + '/12)' : ''}`}
+                            label={`seed phrase${seedPhraseError ? ' (' + seedPhrase.split(" ").length + '/15)' : ''}`}
                             value={seedPhrase}
                             onChange={(e) => {
                                 setSeedPhrase(e.target.value);

@@ -1,4 +1,5 @@
 import {Box, Button} from '@mui/material';
+import {LoadingButton} from '@mui/lab';
 import {STRINGS} from "../../constants";
 
 import type {FC} from "react";
@@ -10,6 +11,7 @@ export interface ButtonPairProps {
     onPrevButtonClick: ButtonProps['onClick'];
     onNextButtonClick: ButtonProps['onClick'];
     disabled?: boolean;
+    loading?: boolean;
 }
 
 export const ButtonPair: FC<ButtonPairProps> = (props) => {
@@ -19,6 +21,7 @@ export const ButtonPair: FC<ButtonPairProps> = (props) => {
         onPrevButtonClick,
         onNextButtonClick,
         disabled = false,
+        loading = false,
     } = props;
 
     return (
@@ -36,14 +39,16 @@ export const ButtonPair: FC<ButtonPairProps> = (props) => {
             >
                 {prevButtonLabel}
             </Button>
-            <Button
+            <LoadingButton
+                loading={loading}
+                loadingPosition="center"
                 variant="contained"
                 sx={{flex: 1}}
                 onClick={onNextButtonClick}
                 disabled={disabled}
             >
                 {nextButtonLabel}
-            </Button>
+            </LoadingButton>
         </Box>
     );
 }

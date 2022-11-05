@@ -1,14 +1,14 @@
 import { rest } from 'msw';
-import {ERGO_ENDPOINTS} from '../constants';
+import {ENDPOINTS} from '../constants';
 
 export const handlers = [
-    rest.post(ERGO_ENDPOINTS.WALLET.INIT, (req, res, ctx) => {
+    rest.post(ENDPOINTS.WALLET.INIT, (req, res, ctx) => {
         return res(
             ctx.status(200),
             ctx.json({mnemonic: "noise donor humble write furnace dilemma auto quit glide divide frown federal siege used draft"})
         )
     }),
-    rest.get(ERGO_ENDPOINTS.WALLET.STATUS, (req, res, ctx) => {
+    rest.get(ENDPOINTS.WALLET.STATUS, (req, res, ctx) => {
         return res(
             ctx.status(200),
             ctx.json({
@@ -20,7 +20,7 @@ export const handlers = [
             }),
         );
     }),
-    rest.post(ERGO_ENDPOINTS.WALLET.UNLOCK, (req, res, ctx) => {
+    rest.post(ENDPOINTS.WALLET.UNLOCK, (req, res, ctx) => {
         return res(
             ctx.status(200),
             ctx.json("OK"),
