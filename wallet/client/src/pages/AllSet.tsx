@@ -1,14 +1,26 @@
 import {DefaultLayout} from "../layouts";
 import {Box, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
-import {FullButton} from "../components";
+import {CopiableAddress, FullButton} from "../components";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Verified as VerifiedIcon} from '@mui/icons-material';
+import {useMemo} from "react";
+
+const useQueryParams = () => {
+    const {search} = useLocation();
+
+    const searchParams = useMemo(() => new URLSearchParams(search), [search]);
+
+    return {
+        txId: searchParams.get('txId'),
+    }
+}
 
 const AllSet = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const {action} = location.state || {};
+    const {txId} = useQueryParams();
 
     return (
         <DefaultLayout logo>
@@ -28,6 +40,7 @@ const AllSet = () => {
                     {action === 'transfer' ? (
                         <Box mt={2}>
                             <Typography variant="body1">{STRINGS.ALL_SET.TRANSFER}</Typography>
+                            <CopiableAddress address={txId || ''} />
                         </Box>
                     ) : (
                         <Box mt={2}>

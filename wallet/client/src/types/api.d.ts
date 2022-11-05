@@ -26,6 +26,7 @@ type GetBalanceSuccessResponse = {
 type GetWalletAddressesSuccessResponse = string[];
 type CreateWalletSuccessResponse = {mnemonic: string};
 type RestoreWalletSuccessResponse = 'OK';
+type TransferSuccessResponse = string; // txId array;
 
 /**
  * error types
@@ -36,4 +37,5 @@ type GetBalanceErrorResponse = CommonErrorResponse;
 type GetWalletAddressesErrorResponse = CommonErrorResponse;
 type CreateWalletErrorResponse = CommonErrorResponse;
 type RestoreWalletErrorResponse = CommonErrorResponse;
+type TransferErrorResponse = CommonErrorResponse;
 

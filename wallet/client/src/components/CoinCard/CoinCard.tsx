@@ -11,6 +11,11 @@ export interface CoinCardProps {
     onClick?: BoxProps['onClick'];
 }
 
+const convertUnit = (num: number | string) => {
+    const parsed = typeof num === 'string' ? parseInt(num) : num || 0;
+    return parsed / (10 ** 9);
+};
+
 export const CoinCard: FC<CoinCardProps> = (props) => {
     const {name, ticker, balance, onClick = noop} = props;
 
@@ -43,7 +48,7 @@ export const CoinCard: FC<CoinCardProps> = (props) => {
                 }}
             >
                 <Typography variant="body2">{name}</Typography>
-                <Typography variant="body2">{`${balance ?? ''} ${ticker}`}</Typography>
+                <Typography variant="body2">{`${convertUnit(balance)} ${ticker}`}</Typography>
             </Box>
         </Box>
     );
