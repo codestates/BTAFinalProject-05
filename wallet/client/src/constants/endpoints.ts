@@ -1,4 +1,4 @@
-const PORT = 3200;
+const PORT = 9052;
 const HOST = `http://localhost:${PORT}`;
 
 const ENDPOINTS = {
@@ -113,10 +113,19 @@ export const ERGO_ENDPOINTS = {
         /**
          * @description transaction을 전송한다.
          * @method POST
-         * @param ?
+         * @param {
+         *   "requests": [
+         *     {
+         *       "address": "5tDbSUSknCJMMRj9wnz3ZUo8pWVLMBaAvzwvaVhCuAyWT5ukc7Qq",
+         *       "value": 1000000000,
+         *       "assets": []
+         *     }
+         *   ],
+         *   "fee": 1000000000
+         * }
          * @returns "7c5a44f9b643bbb0157d6ae8e19d74e28c1486c4c45c75130417dffd8dcef0fc"
          */
-        SEND: `${HOST}/wallet/payment/send`,
+        SEND: `${HOST}/wallet/transaction/send`,
     }
 };
 

@@ -1,13 +1,10 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
 import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {GlobalState} from "../states";
-import {useRecoilValue} from "recoil";
-import {ENDPOINTS} from "../constants";
-import {useMutation} from "react-query";
 import {useAddresses} from "../hooks";
+import {useTransfer} from "../hooks/useTransfer";
 
 const NETWORKS = [
     {
@@ -35,40 +32,21 @@ const useQueryParams = () => {
 
 const SendConfirm = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
-    const {password, mnemonic} = useRecoilValue(GlobalState);
     const {data: myAddresses = []} = useAddresses();
     const navigate = useNavigate();
     const {address, amount} = useQueryParams();
     const {ticker} = useParams();
 
-    const transfer = async () => {
-        try {
-            const res = await fetch(ENDPOINTS.TRANSFER, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    fromAddress: myAddresses[0],
-                    toAddress: address,
-                    amount,
-                    password,
-                    mnemonicPhrase: mnemonic
-                })
-            });
-            const data = await res.json();
-            console.log(data);
-            return data;
-        } catch (e) {
-            console.error(e);
-        }
-    };
+    const {refetch: transfer, data} = useTransfer(address, amount);
 
-    const {data, mutate, isLoading, error} = useMutation(transfer, {
-        onSuccess: () => {
-            navigate('/all-set', {state: {action: 'transfer'}});
+    useEffect(() => {
+        console.log(data);
+        if (Array.isArray(data) && data.length > 0) {
+            navigate(`/all-set?txId=${data[0]}`, {state: {action: 'transfer'}});
+        } else if (typeof data === 'string') {
+            navigate(`/all-set?txId=${data}`, {state: {action: 'transfer'}});
         }
-    });
+    }, [data, navigate]);
 
     return (
         <WalletLayout
@@ -119,7 +97,7 @@ const SendConfirm = () => {
                     >
                         <Box>
                             <Typography variant="h5">Send Address</Typography>
-                            <Typography color="text.secondary" variant="subtitle2">{address}</Typography>
+                            <Typography color="text.secondary" variant="subtitle2" sx={{overflowWrap: 'break-word'}}>{address}</Typography>
                         </Box>
                         <Box>
                             <Typography variant="h5">Amount</Typography>
@@ -133,7 +111,7 @@ const SendConfirm = () => {
                                 navigate(-1);
                             }}
                             onNextButtonClick={() => {
-                                mutate();
+                                transfer();
                             }}
                             disabled={false}
                         />

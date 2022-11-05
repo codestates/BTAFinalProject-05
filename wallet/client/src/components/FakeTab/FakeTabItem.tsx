@@ -1,4 +1,4 @@
-import {Box, Tooltip, Typography} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 
 import type {FC} from "react";
 import type {SvgIconComponent} from '@mui/icons-material';

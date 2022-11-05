@@ -52,7 +52,8 @@ const STRINGS = {
     STATUS: {
         OK: 'OK',
         WALLET_ALREADY_UNLOCKED: 'Wallet already unlocked',
-        WALLET_ALREADY_SET: 'Wallet is already initialized or testMnemonic is set. Clear current secret to re-init it.'
+        WALLET_ALREADY_SET: 'Wallet is already initialized or testMnemonic is set. Clear current secret to re-init it.',
+        PROXY_ERROR: 'Error occurred while trying to proxy',
     }
 }
 

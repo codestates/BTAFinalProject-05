@@ -32,7 +32,7 @@ const Send = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const navigate = useNavigate();
     const {address} = useRecoilValue(ErgoState);
-    const {data: DATA, isLoading} = useBalances();
+    const {data: DATA} = useBalances();
 
     return (
         <WalletLayout

@@ -1,1 +1,1 @@
-export {ErgoState, GlobalState} from './atoms';
+export {ErgoState} from './atoms';

@@ -4,7 +4,7 @@ import {Avatar, Box, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
 import {FullButton, PasswordInput} from "../components";
 import {useRecoilValue} from "recoil";
-import {GlobalState} from "../states";
+import {ErgoState} from "../states";
 import {useEffect, useState} from "react";
 import {useEnv, useWalletUnlock} from "../hooks";
 
@@ -14,7 +14,7 @@ const WelcomeBack = () => {
     const navigate = useNavigate();
     const [password, setPassword] = useState<string>('');
     const [storedPassword] = useEnv(['PASSWORD']);
-    const {address, mnemonic: mnemonicPhrase} = useRecoilValue(GlobalState);
+    const {address} = useRecoilValue(ErgoState);
     const {refetch: unlock, error} = useWalletUnlock();
 
     useEffect(() => {
@@ -22,7 +22,10 @@ const WelcomeBack = () => {
         if(error?.response?.data?.detail === WALLET_ALREADY_UNLOCKED) {
             navigate('/wallet');
         }
-    }, [error]);
+        if(error?.response?.status === 504) {
+            alert('proxy error: is docker running?');
+        }
+    }, [navigate, error]);
 
     return (
         <DefaultLayout>

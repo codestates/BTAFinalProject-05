@@ -7,7 +7,7 @@ import {SendCoinInput} from "../components";
 import {addPrefixToAddress} from "../utils";
 import {useRecoilValue} from "recoil";
 import {ErgoState} from "../states";
-import {useBalance} from "../hooks";
+import {useBalances} from "../hooks";
 
 const NETWORKS = [
     {
@@ -25,30 +25,33 @@ const NETWORKS = [
 const SendInput = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const location = useLocation();
-    const {name, ticker} = location.state || {};
+    const {ticker} = location.state || {};
     const navigate = useNavigate();
     const {address: myAddress} = useRecoilValue(ErgoState);
 
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState('')
 
-    const {data: balance, isLoading} = useBalance(myAddress);
+    const {data} = useBalances();
 
-    const addressError = useMemo(() => {
-        return false;
-        // const addr = /0x/.test(address) ? address : `0x${address}`;
-        // return address.length > 0 && addr.length !== 42;
-    }, [address]);
-
+    // const addressError = useMemo(() => {
+    //     return false;
+    //     // const addr = /0x/.test(address) ? address : `0x${address}`;
+    //     // return address.length > 0 && addr.length !== 42;
+    // }, [address]);
+    //
     const amountError = useMemo(() => {
         const parsedAmount = parseFloat(amount);
-        const parsedBalance = parseFloat(balance);
+        const parsedBalance = (data?.balance || 0) / 10 ** 9;
 
         return (
             (amount.length > 0 && (isNaN(parsedAmount) || parsedAmount <=0))
             || (parsedBalance < parsedAmount)
         );
-    }, [amount, balance]);
+    }, [amount, data]);
+
+    const addressError = false;
+    // const amountError = false;
 
     return (
         <WalletLayout
@@ -92,7 +95,7 @@ const SendInput = () => {
                     <Box display="flex" flexDirection="column" alignItems="center" gap={3} mt={-10} width="100%">
                         <Box display="flex" flexDirection="column" alignItems="center" gap={0.5}>
                             <Box mt={3}>
-                                <Typography fontWeight={700} variant="h6">{`\$${ticker} 송금하기`}</Typography>
+                                <Typography fontWeight={700} variant="h6">{`$${ticker} 송금하기`}</Typography>
                             </Box>
                             <Avatar
                                 sx={{
@@ -116,7 +119,7 @@ const SendInput = () => {
                             />
                             <SendCoinInput
                                 inputType="amount"
-                                label={`금액${amountError ? ' (잔액: ' + balance + ')' : ''}`}
+                                label={`금액 (잔액: ${(data?.balance || 0) / 10 ** 9})`}
                                 placeholder="0"
                                 variant="outlined"
                                 value={amount}

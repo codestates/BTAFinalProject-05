@@ -2,6 +2,7 @@
   "name": "wallet-chrome-extension",
   "version": "1.0.0",
   "private": true,
+  "proxy": "http://localhost:9052",
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
