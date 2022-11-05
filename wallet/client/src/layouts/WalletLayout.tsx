@@ -11,7 +11,7 @@ export interface WalletLayoutProps extends BoxProps {
 }
 
 const WalletLayout: FC<WalletLayoutProps> = (props) => {
-    const {logo = false, sx = {}, topNode, middleNode, bottomNode, ...rest} = props;
+    const {sx = {}, topNode, middleNode, bottomNode, ...rest} = props;
 
     return (
         <Box

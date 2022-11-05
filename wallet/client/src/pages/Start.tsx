@@ -8,11 +8,11 @@ import {useWalletStatus} from "../hooks";
 
 const Start = () => {
     const navigate = useNavigate();
-    const {data, isLoading, error} = useWalletStatus();
+    const {data} = useWalletStatus();
 
     useEffect(() => {
         data?.isInitialized && navigate('/welcome-back');
-    }, [data]);
+    }, [data, navigate]);
 
     return (
         <DefaultLayout>

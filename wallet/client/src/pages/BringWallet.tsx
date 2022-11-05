@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput, PasswordInput} from "../components";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {STRINGS} from "../constants";
 import {useRestoreWallet} from "../hooks";
 
@@ -14,17 +14,21 @@ const BringWallet = () => {
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
-    const seedPhraseError = useMemo(() => false, [seedPhrase]);
-    const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
-    const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
+    // const seedPhraseError = useMemo(() => false, [seedPhrase]);
+    // const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
+    // const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
+    const seedPhraseError = false;
+    const passwordError = false;
+    const passwordConfirmError = false;
+
     const {refetch: restore, error} = useRestoreWallet(seedPhrase);
 
     useEffect(() => {
         // TODO: 에러처리 리팩토링
-        if(error?.response?.data?.detail === WALLET_ALREADY_SET) {
+        if (error?.response?.data?.detail === WALLET_ALREADY_SET) {
             navigate('/wallet');
         }
-    }, [error]);
+    }, [error, navigate]);
 
     return (
         <DefaultLayout logo>

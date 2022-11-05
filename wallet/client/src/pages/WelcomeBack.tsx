@@ -14,7 +14,7 @@ const WelcomeBack = () => {
     const navigate = useNavigate();
     const [password, setPassword] = useState<string>('');
     const [storedPassword] = useEnv(['PASSWORD']);
-    const {address, mnemonic: mnemonicPhrase} = useRecoilValue(GlobalState);
+    const {address} = useRecoilValue(GlobalState);
     const {refetch: unlock, error} = useWalletUnlock();
 
     useEffect(() => {
@@ -22,7 +22,10 @@ const WelcomeBack = () => {
         if(error?.response?.data?.detail === WALLET_ALREADY_UNLOCKED) {
             navigate('/wallet');
         }
-    }, [error]);
+        if(error?.response?.status === 504) {
+            alert('proxy error: is docker running?');
+        }
+    }, [navigate, error]);
 
     return (
         <DefaultLayout>

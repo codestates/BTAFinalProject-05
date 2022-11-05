@@ -1,7 +1,7 @@
 import {ENDPOINTS} from "../constants";
 import {useQuery} from "react-query";
 
-export const useBalance  = (address:string) => {
+export const useBalance = (address: string) => {
     const getBalance = async () => {
         try {
             const res = await fetch(`${ENDPOINTS.BALANCE}?walletAddress=${address}`);

@@ -39,13 +39,13 @@ const Wallet = () => {
             console.log('unlock 성공');
             getAddresses();
         });
-    }, [data]);
+    }, [data, unlock, getAddresses]);
 
     useEffect(() => {
         if (typeof firstAddress?.[0] === 'string') {
             setErgoState(prev => ({...prev, address: firstAddress[0]}))
         }
-    }, [firstAddress]);
+    }, [firstAddress, setErgoState]);
 
     return (
         <WalletLayout

@@ -25,7 +25,7 @@ const CreateWallet = () => {
         if(error?.response?.data?.detail === WALLET_ALREADY_SET) {
             window.confirm('계정이 이미 있습니다. 기존 계정으로 로그인합니다.') && navigate('/wallet');
         }
-    }, [error]);
+    }, [error, navigate]);
 
     useEffect(() => {
         if (typeof data?.mnemonic === 'string') {
@@ -34,7 +34,7 @@ const CreateWallet = () => {
             });
             navigate('/seed-reveal');
         }
-    }, [data])
+    }, [data, navigate, setErgoState])
 
     return (
         <DefaultLayout logo>

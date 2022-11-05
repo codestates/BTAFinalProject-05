@@ -64,7 +64,7 @@ const SendConfirm = () => {
         }
     };
 
-    const {data, mutate, isLoading, error} = useMutation(transfer, {
+    const {mutate} = useMutation(transfer, {
         onSuccess: () => {
             navigate('/all-set', {state: {action: 'transfer'}});
         }
