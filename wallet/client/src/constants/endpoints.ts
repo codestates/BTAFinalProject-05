@@ -47,9 +47,7 @@ export const ERGO_ENDPOINTS = {
         /**
          * @description 지갑을 잠금상태로 변경한다.
          * @method GET
-         * @param {
-         *   "pass": "비밀번호"
-         * }
+         * @param none
          * @returns "OK"
          */
         LOCK: `${HOST}/wallet/lock`,
@@ -57,7 +55,9 @@ export const ERGO_ENDPOINTS = {
         /**
          * @description 지갑의 잠금 상태를 해제한다.
          * @method POST
-         * @param none
+         * @param {
+         *   "pass": "비밀번호"
+         * }
          * @returns {}
          */
         UNLOCK: `${HOST}/wallet/unlock`,

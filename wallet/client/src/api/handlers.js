@@ -20,4 +20,10 @@ export const handlers = [
             }),
         );
     }),
+    rest.post(ERGO_ENDPOINTS.WALLET.UNLOCK, (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json("OK"),
+        );
+    })
 ]

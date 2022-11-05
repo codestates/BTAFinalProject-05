@@ -1,5 +1,10 @@
-import type {HttpStatusCode} from "axios";
+import type {AxiosError, HttpStatusCode} from "axios";
 
+type CommonErrorResponse = AxiosError<{
+    error: HttpStatusCode;
+    reason: string;
+    detail: string;
+}>
 type WalletStatusSuccessResponse = {
     isInitialized: boolean;
     isUnlocked: boolean;
@@ -8,8 +13,9 @@ type WalletStatusSuccessResponse = {
     error: string;
 }
 
-type WalletStatusErrorResponse = {
-    error: HttpStatusCode;
-    reason: string;
-    detail: string;
-}
+type WalletStatusErrorResponse = CommonErrorResponse;
+
+type WalletUnlockSuccessResponse = string;
+
+type WalletUnlockErrorResponse = CommonErrorResponse;
+

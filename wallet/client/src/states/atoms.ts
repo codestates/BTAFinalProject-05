@@ -10,3 +10,10 @@ export const GlobalState = atom({
         password: '',
     },
 });
+
+export const ErgoState = atom({
+    key: 'ergoState',
+    default: {
+        address: '',
+    }
+})
