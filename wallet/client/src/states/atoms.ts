@@ -15,5 +15,6 @@ export const ErgoState = atom({
     key: 'ergoState',
     default: {
         address: '',
+        mnemonic: '',
     }
 })

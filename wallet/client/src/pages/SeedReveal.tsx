@@ -5,11 +5,11 @@ import {ButtonPair, MnemonicInput} from "../components";
 import {STRINGS} from "../constants";
 import {copyToClipboard} from "../utils";
 import {useRecoilValue} from "recoil";
-import {GlobalState} from "../states";
+import {ErgoState} from "../states";
 
 const SeedReveal = () => {
     const navigate = useNavigate();
-    const {mnemonic} = useRecoilValue(GlobalState);
+    const {mnemonic} = useRecoilValue(ErgoState);
 
     return (
         <DefaultLayout logo>
@@ -63,7 +63,7 @@ const SeedReveal = () => {
                 <Box>
                     <ButtonPair
                         onPrevButtonClick={() => {
-                            navigate(-1);
+                            navigate('/');
                         }}
                         onNextButtonClick={() => {
                             navigate('/seed-check');

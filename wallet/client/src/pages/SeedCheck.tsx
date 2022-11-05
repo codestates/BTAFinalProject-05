@@ -4,19 +4,14 @@ import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput} from "../components";
 import {STRINGS} from "../constants";
 import {useRecoilValue} from "recoil";
-import {GlobalState} from "../states";
+import {ErgoState} from "../states";
 import {useMemo, useState} from "react";
 
 const SeedCheck = () => {
     const navigate = useNavigate();
-    const {mnemonic} = useRecoilValue(GlobalState);
+    const {mnemonic} = useRecoilValue(ErgoState);
     const [mnemonicInput, setMnemonicInput] = useState<string>('');
-    const mnemonicError = useMemo(
-        () => (
-                mnemonicInput.length > 0 && mnemonicInput.split(' ').length !== 12)
-            || mnemonic !== mnemonicInput,
-        [mnemonic, mnemonicInput]
-    );
+    const mnemonicError = useMemo(() => mnemonic !== mnemonicInput, [mnemonic, mnemonicInput]);
 
     return (
         <DefaultLayout logo>
