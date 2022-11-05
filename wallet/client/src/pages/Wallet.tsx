@@ -41,7 +41,7 @@ const Wallet = () => {
 
     useEffect(() => {
         if (typeof firstAddress?.[0] === 'string') {
-            setErgoState({address: firstAddress[0]})
+            setErgoState(prev => ({...prev, address: firstAddress[0]}))
         }
     }, [firstAddress]);
 

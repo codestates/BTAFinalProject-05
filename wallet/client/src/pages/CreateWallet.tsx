@@ -5,6 +5,8 @@ import {DefaultLayout} from "../layouts";
 import {ButtonPair, PasswordInput} from "../components";
 import {STRINGS} from "../constants";
 import {useCreateWallet} from "../hooks";
+import {useSetRecoilState} from "recoil";
+import {ErgoState} from "../states";
 
 const {STATUS: {WALLET_ALREADY_SET}} = STRINGS;
 
@@ -13,7 +15,7 @@ const CreateWallet = () => {
 
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
-
+    const setErgoState = useSetRecoilState(ErgoState);
     const passwordError = useMemo(() => false, []);
     const passwordConfirmError = useMemo(() => false, []);
     const {refetch: createWallet, data, error} = useCreateWallet(password);
@@ -26,7 +28,12 @@ const CreateWallet = () => {
     }, [error]);
 
     useEffect(() => {
-        console.log({data});
+        if (typeof data?.mnemonic === 'string') {
+            setErgoState((prev) => {
+                return {...prev, mnemonic: data.mnemonic};
+            });
+            navigate('/seed-reveal');
+        }
     }, [data])
 
     return (
