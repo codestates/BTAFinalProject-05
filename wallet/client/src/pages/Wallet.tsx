@@ -32,12 +32,13 @@ const Wallet = () => {
     const setErgoState = useSetRecoilState(ErgoState);
     const {refetch: unlock, data} = useWalletUnlock();
     const {refetch: getAddresses, data: firstAddress = []} = useAddresses();
-    const {data: DATA} = useBalances();
+    const {refetch: getBalance, data: DATA} = useBalances();
 
     useEffect(() => {
         unlock().then(() => {
             console.log('unlock 성공');
             getAddresses();
+            getBalance();
         });
     }, [data, unlock, getAddresses]);
 

@@ -11,7 +11,7 @@ export const useWalletUnlock = () => {
     const unlockWallet = async () => {
         const config = {headers: {'Content-Type': 'application/json;charset=UTF-8', api_key}}
         const {data} = await axios.post(ERGO_ENDPOINTS.WALLET.UNLOCK, {pass}, config);
-        console.log(data);
+
         return data;
     };
 

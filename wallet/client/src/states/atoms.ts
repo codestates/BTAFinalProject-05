@@ -1,20 +1,15 @@
 import {atom} from "recoil";
 
-export const GlobalState = atom({
-    key: 'globalState',
-    default: {
-        mnemonic: '',
-        // TODO: 제거!!!!!!!!!!
-        address: '',
-        // TODO: 제거!!!!!!!!!!
-        password: '',
-    },
-});
-
-export const ErgoState = atom({
+export interface ErgoStateType {
+    address: string;
+    mnemonic: string;
+    api_key: string | null;
+}
+export const ErgoState = atom<ErgoStateType>({
     key: 'ergoState',
     default: {
         address: '',
         mnemonic: '',
+        api_key: null,
     }
 })

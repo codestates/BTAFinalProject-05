@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {DefaultLayout} from "../layouts";
 import {ButtonPair, MnemonicInput, PasswordInput} from "../components";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {STRINGS} from "../constants";
 import {useRestoreWallet} from "../hooks";
 
@@ -14,9 +14,6 @@ const BringWallet = () => {
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
-    // const seedPhraseError = useMemo(() => false, [seedPhrase]);
-    // const passwordError = useMemo(() => password.length > 0 && password.length < 8, [password]);
-    // const passwordConfirmError = useMemo(() => passwordError || password !== passwordConfirm, [passwordError, password, passwordConfirm]);
     const seedPhraseError = false;
     const passwordError = false;
     const passwordConfirmError = false;
@@ -63,7 +60,7 @@ const BringWallet = () => {
                             onChange={(e) => {
                                 setPassword(e.target.value);
                             }}
-                            error={passwordError}
+                            // error={passwordError}
                             label="비밀번호(8자 이상)"
                             variant="outlined"
                         />
@@ -74,7 +71,7 @@ const BringWallet = () => {
                                 setPasswordConfirm(e.target.value);
                             }}
                             variant="outlined"
-                            error={passwordConfirmError}
+                            // error={passwordConfirmError}
                         />
                     </Box>
                 </Box>
