@@ -21,7 +21,7 @@ export const useRestoreWallet = (mnemonic: string, pass: string) => {
     };
 
     return useQuery<RestoreWalletSuccessResponse, RestoreWalletErrorResponse>(
-        'getWalletStatus',
+        ['restoreWallet', mnemonic, pass, api_key],
         restoreWallet,
         {
             refetchOnWindowFocus: false,

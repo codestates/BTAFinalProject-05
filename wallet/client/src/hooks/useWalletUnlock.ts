@@ -18,7 +18,7 @@ export const useWalletUnlock = () => {
     };
 
     return useQuery<WalletUnlockSuccessResponse, WalletUnlockErrorResponse>(
-        'getWalletStatus',
+        ['unlockWallet', pass, api_key],
         unlockWallet,
         {
             refetchOnWindowFocus: false,

@@ -18,7 +18,7 @@ export const useCreateWallet = (pass: string) => {
     };
 
     return useQuery<CreateWalletSuccessResponse, CreateWalletErrorResponse>(
-        'getWalletStatus',
+        ['createWallet', pass, api_key],
         createWallet,
         {
             refetchOnWindowFocus: false,

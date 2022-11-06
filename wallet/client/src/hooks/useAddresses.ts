@@ -16,7 +16,7 @@ export const useAddresses = () => {
     };
 
     return useQuery<GetWalletAddressesSuccessResponse, GetWalletAddressesErrorResponse>(
-        'getAddresses',
+        ['getAddresses', api_key],
         getAddresses,
         {
             refetchOnWindowFocus: false,
