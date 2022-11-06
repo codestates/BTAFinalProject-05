@@ -85,11 +85,11 @@ const SendConfirm = () => {
                         width="100%"
                     >
                         <Box>
-                            <Typography variant="h5">Send Address</Typography>
+                            <Typography variant="h5">보내는 주소</Typography>
                             <Typography color="text.secondary" variant="subtitle2" sx={{overflowWrap: 'break-word'}}>{address}</Typography>
                         </Box>
                         <Box>
-                            <Typography variant="h5">Amount</Typography>
+                            <Typography variant="h5">금액</Typography>
                             <Typography color="text.secondary" variant="body1">{`${amount} ${ticker}`}</Typography>
                         </Box>
                     </Box>
