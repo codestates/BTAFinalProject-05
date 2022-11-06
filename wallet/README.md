@@ -12,16 +12,14 @@
 
 ## Getting Started
 
-> ⚠️ 모든 명령어는 root directory를 기준으로 작성되었습니다.
+> ⚠️ 모든 명령어는 root directory를 기준으로 작성되었습니다.  
+> ⚠️ localhost:9052에 Ergo container가 실행되고 있어야 정상 동작합니다.
 
 ### Install
 
 ```shell
 # client npm 패키지 설치 및 빌드
 cd client && npm install && npm run build
-
-# api server npm 패키지 설치 및 빌드
-cd server && npm install && npm run build
 ```
 
 ### 🚨 인증 정보 입력
