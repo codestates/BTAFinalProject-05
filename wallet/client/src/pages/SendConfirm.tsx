@@ -40,13 +40,13 @@ const SendConfirm = () => {
                     const previousList = (obj[addr] ?? []) as string[];
                     chrome.storage.local.set({
                         [addr]: [
-                            ...previousList,
                             {
                                 address,
                                 amount,
                                 txId: data,
-                                date: dayjs().format('YYYY년 MM월 DD일 HH시 mm ss초')
-                            }
+                                date: dayjs().format('YYYY년 MM월 DD일 HH시 mm분 ss초')
+                            },
+                            ...previousList,
                         ]
                     });
                 });
@@ -71,7 +71,7 @@ const SendConfirm = () => {
                             height: 25,
                         }}
                         alt="ERGO"
-                        src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
+                        src={`https://avatars.dicebear.com/api/bottts/${myAddresses[0]}.svg`}
                     />
                 </Box>
             }

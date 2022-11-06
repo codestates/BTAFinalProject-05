@@ -9,3 +9,6 @@ export {MnemonicInput} from './MnemonicInput';
 export {NetworkSelector} from './NetworkSelector';
 export {PasswordInput} from './PasswordInput';
 export {SendCoinInput} from './SendCoinInput';
+export {TxTable} from './TxTable';
+
+export type {Row} from './TxTable';

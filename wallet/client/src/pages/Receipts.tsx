@@ -1,29 +1,31 @@
 import {WalletLayout} from "../layouts";
-import {Avatar, Box, Typography} from "@mui/material";
-import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
-import {useEffect, useMemo, useState} from "react";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {Avatar, Box} from "@mui/material";
+import {CopiableAddress, FakeTab, NetworkSelector, TxTable} from "../components";
+import {useEffect, useState} from "react";
 import {useAddresses} from "../hooks";
-import {useTransfer} from "../hooks/useTransfer";
 import {OBJECTS} from "../constants";
 
+import type {Row} from "../components";
+
 const {NETWORKS} = OBJECTS;
-const useQueryParams = () => {
-    const {search} = useLocation();
-
-    const searchParams = useMemo(() => new URLSearchParams(search), [search]);
-
-    return {
-        address: searchParams.get('address'),
-        amount: searchParams.get('amount'),
-    }
-}
 
 const Receipts = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const {data: myAddresses = []} = useAddresses();
-    const {address, amount} = useQueryParams();
-    const {ticker} = useParams();
+    const [rows, setRows] = useState<Row[]>([]);
+
+    useEffect(() => {
+        if (chrome?.storage) {
+            const addr = myAddresses[0];
+            chrome.storage.local.get(addr).then(obj => {
+                const list = obj[addr]
+                console.log(list);
+                if (Array.isArray(list)) {
+                    setRows(list);
+                }
+            });
+        }
+    }, [myAddresses]);
 
     return (
         <WalletLayout
@@ -41,7 +43,7 @@ const Receipts = () => {
                             height: 25,
                         }}
                         alt="ERGO"
-                        src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
+                        src={`https://avatars.dicebear.com/api/bottts/${myAddresses[0]}.svg`}
                     />
                 </Box>
             }
@@ -65,21 +67,13 @@ const Receipts = () => {
                         />
                     </Box>
                     <Box
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="left"
-                        gap={2}
-                        mt={-20}
-                        width="100%"
+                        width="110%"
+                        height="100%"
+                        marginX={-2}
+                        mt={1}
+                        sx={{overflowY: 'scroll'}}
                     >
-                        <Box>
-                            <Typography variant="h5">보내는 주소</Typography>
-                            <Typography color="text.secondary" variant="subtitle2" sx={{overflowWrap: 'break-word'}}>{address}</Typography>
-                        </Box>
-                        <Box>
-                            <Typography variant="h5">금액</Typography>
-                            <Typography color="text.secondary" variant="body1">{`${amount} ${ticker}`}</Typography>
-                        </Box>
+                        <TxTable rows={rows} />
                     </Box>
                     <Box width="100%">
                     </Box>

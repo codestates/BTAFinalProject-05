@@ -8,10 +8,12 @@ import type {BoxProps} from '@mui/material';
 
 export interface CopiableAddressProps {
     address: string;
+    noMargin?: boolean;
+    align? : 'left' | 'center' | 'right';
 }
 
 export const CopiableAddress: FC<CopiableAddressProps> = (props) => {
-    const {address} = props;
+    const {address, noMargin = false, align = "center"} = props;
     const shortenedAddress = useMemo(() => {
         const addr = address ?? '';
 
@@ -26,10 +28,10 @@ export const CopiableAddress: FC<CopiableAddressProps> = (props) => {
 
     return (
         <Box
-            mx={2}
+            mx={noMargin ? 0 : 2}
             sx={{
                 display: 'flex',
-                justifyContent: 'center',
+                justifyContent: align,
                 alignItems: 'center',
                 '&:hover': {
                     cursor: 'pointer',
