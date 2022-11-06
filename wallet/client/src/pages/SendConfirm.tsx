@@ -6,6 +6,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAddresses} from "../hooks";
 import {useTransfer} from "../hooks/useTransfer";
 import {OBJECTS} from "../constants";
+import dayjs from "dayjs";
 
 const {NETWORKS} = OBJECTS;
 const useQueryParams = () => {
@@ -43,7 +44,8 @@ const SendConfirm = () => {
                             {
                                 address,
                                 amount,
-                                txId: data
+                                txId: data,
+                                date: dayjs().format('YYYY년 MM월 DD일 HH시 mm ss초')
                             }
                         ]
                     });
