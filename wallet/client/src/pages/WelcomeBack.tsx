@@ -1,11 +1,12 @@
-import {Link, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import {DefaultLayout} from "../layouts";
-import {Avatar, Box, Typography} from "@mui/material";
+import {Avatar, Box, Button,  Snackbar, Typography} from "@mui/material";
 import {STRINGS} from "../constants";
 import {FullButton, PasswordInput} from "../components";
 import {useRecoilValue} from "recoil";
 import {ErgoState} from "../states";
-import {useEffect, useState} from "react";
+
 import {useEnv, useWalletUnlock} from "../hooks";
 
 const {STATUS: {OK, WALLET_ALREADY_UNLOCKED}} = STRINGS;
@@ -16,6 +17,16 @@ const WelcomeBack = () => {
     const [storedPassword] = useEnv(['PASSWORD']);
     const {address} = useRecoilValue(ErgoState);
     const {refetch: unlock, error} = useWalletUnlock();
+
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (_: unknown, reason?: string) => {
+        reason !== 'clickaway' && setOpen(false);
+    };
 
     useEffect(() => {
         // TODO: 에러처리 리팩토링
@@ -67,12 +78,20 @@ const WelcomeBack = () => {
                     />
                 </Box>
                 <Box sx={{transform: 'translateY(35px)'}}>
-                    <Link to="/first-time">
+                    <Button onClick={handleClick}>
                         <Typography color="warning.light" variant="subtitle2">
-                            처음부터 시작하고 싶다면 이 메세지 클릭
+                            처음부터 시작하고 싶다면?
                         </Typography>
-                    </Link>
+                    </Button>
                 </Box>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    sx={{whiteSpace: 'break-spaces'}}
+                    onClose={handleClose}
+                    message="~/ergo/.ergo folder에 계정 정보가 이미 존재하기 때문에, 초기화를 위해서는 해당 폴더를 지워야 합니다."
+                    action={<Button color="warning" size="small" onClick={handleClose}>확인</Button>}
+                />
                 <Box width="100%">
                     <FullButton
                         onClick={() => {

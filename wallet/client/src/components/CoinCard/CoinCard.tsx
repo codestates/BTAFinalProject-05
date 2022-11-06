@@ -32,6 +32,7 @@ export const CoinCard: FC<CoinCardProps> = (props) => {
                 borderRadius: 1.5,
                 '&:hover': {
                     cursor: 'pointer',
+                    color: 'black',
                     bgcolor: 'grey.50',
                     opacity: 0.8,
                 }
