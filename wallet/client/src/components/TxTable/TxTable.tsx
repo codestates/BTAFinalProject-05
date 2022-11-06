@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import {CopiableAddress} from "../CopiableAddress";
 
 import type {FC, PropsWithChildren} from "react";
@@ -121,8 +122,9 @@ export const TxTable: FC<PropsWithChildren<TxTableProps>> = (props) => {
             </Table>
         </TableContainer>
     ) : (
-        <Box textAlign="center">
-            <Typography variant="h4">data가 없습니다.</Typography>
+        <Box textAlign="center" paddingTop={15}>
+            <NewReleasesIcon sx={{fontSize: 100}} />
+            <Typography variant="h5">거래 내역이 없습니다.</Typography>
         </Box>
     );
 }
