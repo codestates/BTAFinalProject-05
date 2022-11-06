@@ -25,9 +25,9 @@ const TABS = [
     },
     {
         label: '히스토리',
-        path: '/wallet',
+        path: '/receipts',
         icon: ReceiptIcon,
-        disabled: true,
+        // disabled: true,
     }
 ];
 

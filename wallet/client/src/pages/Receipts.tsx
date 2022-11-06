@@ -19,39 +19,11 @@ const useQueryParams = () => {
     }
 }
 
-const SendConfirm = () => {
+const Receipts = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const {data: myAddresses = []} = useAddresses();
-    const navigate = useNavigate();
     const {address, amount} = useQueryParams();
     const {ticker} = useParams();
-
-    const {refetch: transfer, data, isRefetching, isLoading} = useTransfer(address, amount);
-
-    useEffect(() => {
-        console.log(data);
-        // TODO: transaction들 storage 저장
-        if (myAddresses?.length > 0 && typeof data === 'string') {
-            const addr = myAddresses[0];
-            if (chrome?.storage) {
-                chrome.storage.local.get(addr).then((obj) => {
-                    console.log({obj});
-                    const previousList = (obj[addr] ?? []) as string[];
-                    chrome.storage.local.set({
-                        [addr]: [
-                            ...previousList,
-                            {
-                                address,
-                                amount,
-                                txId: data
-                            }
-                        ]
-                    });
-                });
-            }
-            navigate(`/all-set?txId=${data}`, {state: {action: 'transfer'}});
-        }
-    }, [myAddresses, data, navigate, amount, address]);
 
     return (
         <WalletLayout
@@ -102,8 +74,7 @@ const SendConfirm = () => {
                     >
                         <Box>
                             <Typography variant="h5">보내는 주소</Typography>
-                            <Typography color="text.secondary" variant="subtitle2"
-                                        sx={{overflowWrap: 'break-word'}}>{address}</Typography>
+                            <Typography color="text.secondary" variant="subtitle2" sx={{overflowWrap: 'break-word'}}>{address}</Typography>
                         </Box>
                         <Box>
                             <Typography variant="h5">금액</Typography>
@@ -111,17 +82,6 @@ const SendConfirm = () => {
                         </Box>
                     </Box>
                     <Box width="100%">
-                        <ButtonPair
-                            nextButtonLabel="확인 완료"
-                            onPrevButtonClick={() => {
-                                navigate(-1);
-                            }}
-                            onNextButtonClick={() => {
-                                transfer();
-                            }}
-                            loading={isLoading || isRefetching}
-                            disabled={false}
-                        />
                     </Box>
                 </Box>
             }
@@ -133,11 +93,11 @@ const SendConfirm = () => {
                     justifyContent="center"
                     alignItems="center"
                 >
-                    <FakeTab activeIndex={1} />
+                    <FakeTab activeIndex={2} />
                 </Box>
             }
         />
     )
 }
 
-export default SendConfirm;
+export default Receipts;

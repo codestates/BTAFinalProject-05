@@ -28,6 +28,7 @@ export const useTransfer = (toAddress: string | null, value: string | null) => {
         {
             refetchOnWindowFocus: false,
             retry: 0,
+            cacheTime: 0,
             staleTime: 0,
             enabled: false,
         }
