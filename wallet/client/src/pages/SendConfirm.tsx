@@ -6,6 +6,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAddresses} from "../hooks";
 import {useTransfer} from "../hooks/useTransfer";
 import {OBJECTS} from "../constants";
+import dayjs from "dayjs";
 
 const {NETWORKS} = OBJECTS;
 const useQueryParams = () => {
@@ -30,12 +31,29 @@ const SendConfirm = () => {
 
     useEffect(() => {
         console.log(data);
-        if (Array.isArray(data) && data.length > 0) {
-            navigate(`/all-set?txId=${data[0]}`, {state: {action: 'transfer'}});
-        } else if (typeof data === 'string') {
+        // TODO: transaction들 storage 저장
+        if (myAddresses?.length > 0 && typeof data === 'string') {
+            const addr = myAddresses[0];
+            if (chrome?.storage) {
+                chrome.storage.local.get(addr).then((obj) => {
+                    console.log({obj});
+                    const previousList = (obj[addr] ?? []) as string[];
+                    chrome.storage.local.set({
+                        [addr]: [
+                            {
+                                address,
+                                amount,
+                                txId: data,
+                                date: dayjs().format('YYYY년 MM월 DD일 HH시 mm분 ss초')
+                            },
+                            ...previousList,
+                        ]
+                    });
+                });
+            }
             navigate(`/all-set?txId=${data}`, {state: {action: 'transfer'}});
         }
-    }, [data, navigate]);
+    }, [myAddresses, data, navigate, amount, address]);
 
     return (
         <WalletLayout
@@ -53,7 +71,7 @@ const SendConfirm = () => {
                             height: 25,
                         }}
                         alt="ERGO"
-                        src={`https://avatars.dicebear.com/api/bottts/${address}.svg`}
+                        src={`https://avatars.dicebear.com/api/bottts/${myAddresses[0]}.svg`}
                     />
                 </Box>
             }
@@ -86,7 +104,8 @@ const SendConfirm = () => {
                     >
                         <Box>
                             <Typography variant="h5">보내는 주소</Typography>
-                            <Typography color="text.secondary" variant="subtitle2" sx={{overflowWrap: 'break-word'}}>{address}</Typography>
+                            <Typography color="text.secondary" variant="subtitle2"
+                                        sx={{overflowWrap: 'break-word'}}>{address}</Typography>
                         </Box>
                         <Box>
                             <Typography variant="h5">금액</Typography>

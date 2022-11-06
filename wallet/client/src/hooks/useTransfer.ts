@@ -23,11 +23,13 @@ export const useTransfer = (toAddress: string | null, value: string | null) => {
     };
 
     return useQuery<TransferSuccessResponse, TransferErrorResponse>(
-        'getWalletStatus',
+        ['transfer', toAddress, value],
         transfer,
         {
             refetchOnWindowFocus: false,
             retry: 0,
+            cacheTime: 0,
+            staleTime: 0,
             enabled: false,
         }
     );

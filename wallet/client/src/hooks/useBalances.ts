@@ -9,15 +9,15 @@ import type {GetBalanceErrorResponse, GetBalanceSuccessResponse} from "../types/
 export const useBalances = () => {
     const {api_key} = useRecoilValue(ErgoState);
 
-    const getWalletStatus = async () => {
+    const getBalance = async () => {
         const config = {headers: {api_key}};
         const {data} = await axios.get(ENDPOINTS.WALLET.BALANCE, config);
         return data;
     };
 
     return useQuery<GetBalanceSuccessResponse, GetBalanceErrorResponse>(
-        'getWalletStatus',
-        getWalletStatus,
+        ['getBalance', api_key],
+        getBalance,
         {
             refetchOnWindowFocus: false,
             staleTime: 3000,
