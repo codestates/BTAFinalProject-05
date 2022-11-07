@@ -36,6 +36,13 @@ export async function getServerSideProps(context) {
         match_all: {},
       },
       size: 20,
+      sort: [
+        {
+          height: {
+            order: "desc",
+          },
+        },
+      ],
     },
   });
 

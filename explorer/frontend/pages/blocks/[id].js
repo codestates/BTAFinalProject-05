@@ -17,7 +17,7 @@ export default function BlockDetailPage({ result }) {
   return (
     <>
       <Header />
-      <BlockDetail result={result._source} />
+      <BlockDetail result={result ? result._source : null} />
     </>
   );
 }
@@ -25,6 +25,7 @@ export default function BlockDetailPage({ result }) {
 export async function getServerSideProps(context) {
   const id = context.query.id;
   // get transaction from elasticsearch
+
   const { body } = await client.search({
     index: "ergo_block_detail",
     body: {
@@ -38,7 +39,13 @@ export async function getServerSideProps(context) {
 
   const result = body.hits.hits;
   console.log(result[0]);
-
+  if (result[0] == null) {
+    return {
+      props: {
+        result: null,
+      },
+    };
+  }
   return {
     props: {
       result: result[0],

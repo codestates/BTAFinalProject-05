@@ -23,6 +23,13 @@ export default function handler(req, res) {
           query: {
             match_all: {},
           },
+          sort: [
+            {
+              height: {
+                order: "desc",
+              },
+            },
+          ],
         },
       })
       .then((results) => {
