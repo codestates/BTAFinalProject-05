@@ -22,7 +22,6 @@ export default function Blocks({ results }) {
   return (
     <div>
       <Header />
-      <div className="m-8 text-lg"># Total Block : {total}</div>
       <BlockResults results={results} />
     </div>
   );

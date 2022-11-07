@@ -9,19 +9,17 @@ export default function Home({ results }) {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
   const getBlocks = async () => {
-    const size = 5;
+    const size = 10;
     const url =
       process.env.NEXT_PUBLIC_URL + `/api/blocks?page=${page}&size=${size}`;
     console.log(url);
     const blocks = await axios.get(url);
     setData(blocks.data);
-    // console.log("blocks from useEffect");
-    // console.log(blocks);
   };
 
   useEffect(() => {
     getBlocks();
-  }, []);
+  }, [page]);
 
   return (
     <div>
@@ -34,9 +32,8 @@ export default function Home({ results }) {
 
       <MempoolResult />
       <BlockResults results={data} />
-      <div className="ml-8">
+      <div className="ml-8 m-5">
         <div className="btn-group grid grid-cols-12">
-          {page}
           <button
             className="btn btn-outline"
             onClick={() => {
@@ -47,6 +44,7 @@ export default function Home({ results }) {
           >
             Previous page
           </button>
+          <button className="btn btn-outline">{page + 1}</button>
           <button
             className="btn btn-outline"
             onClick={() => {

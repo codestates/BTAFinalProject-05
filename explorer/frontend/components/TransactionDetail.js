@@ -5,7 +5,7 @@ export default function TransactionDetail({ result }) {
   return (
     <div className="m-3">
       {result._id ? (
-        <>
+        <div key={result._id}>
           <div className="divide-y divide-slate-400/75">
             <TransactionBox
               title="Transaction ID"
@@ -62,7 +62,7 @@ export default function TransactionDetail({ result }) {
 
             <TransactionBox title="Size" content={result._source.size} />
           </div>
-        </>
+        </div>
       ) : (
         <div className="m-3 text-lg">Block Not Exists</div>
       )}
