@@ -1,6 +1,8 @@
 import {useState} from "react";
 import {
-    Box, Collapse, IconButton,
+    Box,
+    Collapse,
+    IconButton,
     Paper,
     styled,
     Table,
@@ -78,22 +80,24 @@ const RowComponent = ({row, idx}: { row: Row, idx: number }) => {
             <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
                 <Collapse in={open} timeout="auto" unmountOnExit>
                     <Box sx={{margin: 1}}>
-                        <Typography fontWeight="bold" variant="h6" component="div">
-                            Date
-                        </Typography>
-                        <Typography gutterBottom>{row.date}</Typography>
-
-                        <Typography fontWeight="bold" variant="h6" component="div">
-                            To
-                        </Typography>
-                        <Typography gutterBottom>
-                            <CopiableAddress noMargin align="left" address={row.address} />
-                        </Typography>
-
-                        <Typography fontWeight="bold" variant="h6" component="div">
-                            Amount
-                        </Typography>
-                        <Typography gutterBottom>{row.amount}</Typography>
+                        {(Object.keys(row) as Array<keyof Row>)
+                            .filter((key) => row[key])
+                            .map((key) => (
+                                    <>
+                                        <Typography fontWeight="bold" variant="h6" component="div">
+                                            {key}
+                                        </Typography>
+                                        {key === 'txId' || key === 'address' ? (
+                                            <CopiableAddress noMargin align="left" address={row[key]} />
+                                        ) : (
+                                            <Typography variant="subtitle2" gutterBottom>
+                                                {row[key]}
+                                            </Typography>
+                                        )}
+                                    </>
+                                )
+                            )
+                        }
                     </Box>
                 </Collapse>
             </TableCell>
