@@ -39,17 +39,15 @@ export default function Home({ results }) {
             onClick={() => {
               if (page == 0) return;
               setPage(page - 1);
-              getBlocks();
             }}
           >
-            Previous page
+            Prev
           </button>
           <button className="btn btn-outline">{page + 1}</button>
           <button
             className="btn btn-outline"
             onClick={() => {
               setPage(page + 1);
-              getBlocks();
             }}
           >
             Next
