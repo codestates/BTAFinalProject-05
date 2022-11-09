@@ -1,6 +1,6 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
-import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
+import {ButtonPair, CopiableAddress, NetworkSelector} from "../components";
 import {useMemo, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {SendCoinInput} from "../components";
@@ -132,17 +132,6 @@ const SendInput = () => {
                             disabled={address.length === 0 || amount.length === 0 || addressError || amountError}
                         />
                     </Box>
-                </Box>
-            }
-            bottomNode={
-                <Box
-                    height="100%"
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <FakeTab activeIndex={1} />
                 </Box>
             }
         />

@@ -1,6 +1,6 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
-import {ButtonPair, CopiableAddress, FakeTab, NetworkSelector} from "../components";
+import {ButtonPair, CopiableAddress, NetworkSelector} from "../components";
 import {useEffect, useMemo, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAddresses} from "../hooks";
@@ -125,17 +125,6 @@ const SendConfirm = () => {
                             disabled={false}
                         />
                     </Box>
-                </Box>
-            }
-            bottomNode={
-                <Box
-                    height="100%"
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <FakeTab activeIndex={1} />
                 </Box>
             }
         />

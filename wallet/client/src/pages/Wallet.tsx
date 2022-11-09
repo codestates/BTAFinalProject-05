@@ -1,6 +1,6 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box} from "@mui/material";
-import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
+import {CoinCard, CopiableAddress, NetworkSelector} from "../components";
 import {useEffect, useState} from "react";
 import {useSetRecoilState} from "recoil";
 import {ErgoState} from "../states";
@@ -77,17 +77,6 @@ const Wallet = () => {
                             return <CoinCard key={balance.ticker} {...balance} balance={DATA?.balance || 0} />
                         })}
                     </Box>
-                </Box>
-            }
-            bottomNode={
-                <Box
-                    height="100%"
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <FakeTab activeIndex={0} />
                 </Box>
             }
         />
