@@ -1,6 +1,6 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box} from "@mui/material";
-import {CopiableAddress, FakeTab, NetworkSelector, TxTable} from "../components";
+import {CopiableAddress, NetworkSelector, TxTable} from "../components";
 import {useEffect, useState} from "react";
 import {useAddresses} from "../hooks";
 import {OBJECTS} from "../constants";
@@ -77,17 +77,6 @@ const Receipts = () => {
                     </Box>
                     <Box width="100%">
                     </Box>
-                </Box>
-            }
-            bottomNode={
-                <Box
-                    height="100%"
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <FakeTab activeIndex={2} />
                 </Box>
             }
         />

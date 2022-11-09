@@ -1,6 +1,6 @@
 import {WalletLayout} from "../layouts";
 import {Avatar, Box, Typography} from "@mui/material";
-import {CoinCard, CopiableAddress, FakeTab, NetworkSelector} from "../components";
+import {CoinCard, CopiableAddress, NetworkSelector} from "../components";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useRecoilValue} from "recoil";
@@ -75,17 +75,6 @@ const Send = () => {
                             );
                         })}
                     </Box>
-                </Box>
-            }
-            bottomNode={
-                <Box
-                    height="100%"
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <FakeTab activeIndex={1} />
                 </Box>
             }
         />
