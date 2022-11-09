@@ -21,7 +21,7 @@ const SendInput = () => {
 
     const [address, setAddress] = useState('');
     const [amount, setAmount] = useState('')
-
+    const [fee, setFee] = useState('1');
     const {data} = useBalances();
 
     // const addressError = useMemo(() => {
@@ -119,6 +119,18 @@ const SendInput = () => {
                                 error={amountError}
                                 unit={ticker}
                             />
+                            <SendCoinInput
+                                inputType="amount"
+                                label={`Fee(수수료) 기본값: 1`}
+                                placeholder="1"
+                                variant="outlined"
+                                value={fee}
+                                onChange={(e) => {
+                                    setFee(e.target.value)
+                                }}
+                                error={amountError}
+                                unit={ticker}
+                            />
                         </Box>
                     </Box>
                     <Box width="100%">
@@ -127,7 +139,7 @@ const SendInput = () => {
                                 navigate('/send');
                             }}
                             onNextButtonClick={() => {
-                                navigate(`confirm?address=${addPrefixToAddress(address)}&amount=${amount}`);
+                                navigate(`confirm?address=${addPrefixToAddress(address)}&amount=${amount}&fee=${fee}`);
                             }}
                             disabled={address.length === 0 || amount.length === 0 || addressError || amountError}
                         />

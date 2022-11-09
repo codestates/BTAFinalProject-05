@@ -17,6 +17,7 @@ const useQueryParams = () => {
     return {
         address: searchParams.get('address'),
         amount: searchParams.get('amount'),
+        fee: searchParams.get('fee'),
     }
 }
 
@@ -24,10 +25,10 @@ const SendConfirm = () => {
     const [network, setNetwork] = useState<string>(NETWORKS[0].value);
     const {data: myAddresses = []} = useAddresses();
     const navigate = useNavigate();
-    const {address, amount} = useQueryParams();
+    const {address, amount, fee} = useQueryParams();
     const {ticker} = useParams();
 
-    const {refetch: transfer, data, isRefetching, isLoading} = useTransfer(address, amount);
+    const {refetch: transfer, data, isRefetching, isLoading} = useTransfer(address, amount, fee);
 
     useEffect(() => {
         console.log(data);
@@ -43,6 +44,7 @@ const SendConfirm = () => {
                             {
                                 address,
                                 amount,
+                                fee,
                                 txId: data,
                                 date: dayjs().format('YYYY년 MM월 DD일 HH시 mm분 ss초')
                             },
@@ -53,7 +55,7 @@ const SendConfirm = () => {
             }
             navigate(`/all-set?txId=${data}`, {state: {action: 'transfer'}});
         }
-    }, [myAddresses, data, navigate, amount, address]);
+    }, [myAddresses, data, navigate, amount, fee, address]);
 
     return (
         <WalletLayout
@@ -110,6 +112,10 @@ const SendConfirm = () => {
                         <Box>
                             <Typography variant="h5">금액</Typography>
                             <Typography color="text.secondary" variant="body1">{`${amount} ${ticker}`}</Typography>
+                        </Box>
+                        <Box>
+                            <Typography variant="h5">수수료</Typography>
+                            <Typography color="text.secondary" variant="body1">{`${fee} ${ticker}`}</Typography>
                         </Box>
                     </Box>
                     <Box width="100%">
