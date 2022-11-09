@@ -1,4 +1,4 @@
-import Header from "../../components/header";
+import Header from "../../components/Header";
 import TransactionDetail from "../../components/TransactionDetail";
 
 const { Client } = require("@elastic/elasticsearch");

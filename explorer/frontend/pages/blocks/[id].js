@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import BlockDetail from "../../components/BlockDetail";
-import Header from "../../components/header";
+import Header from "../../components/Header";
 
 const { Client } = require("@elastic/elasticsearch");
 const client = new Client({
