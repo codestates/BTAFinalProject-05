@@ -81,8 +81,8 @@ const getBlockTransaction = async (headerId) => {
 const insertBlockHeightId = async (heigthid) => {
   try {
     await client.index({
-        index: "ergo_block_heightid_test",
-        document : { 
+        index: "ergo_block_heightid",
+        body : { 
           heightid : heigthid 
         }
       });
@@ -95,25 +95,28 @@ const insertBlockHeightId = async (heigthid) => {
 const getBlockHeightId = async () => {
   try{
     const result = await client.search({
-    index: 'ergo_block_heightid_test',
-      "sort" :[
-        {"heightid":"desc"}
-        ],
-      "query":{
-          "match_all":{}
-      },
-        "aggs": {
-          "maxDuration": {
-              "max": {
-                  "field": "heightid"
-              }
+    index: "ergo_block_heightid",
+    body : {"sort" :[
+      {"heightid":"desc"}
+      ],
+    "query":{
+        "match_all":{}
+    },
+    "aggs": {
+        "maxDuration": {
+            "max": {
+                "field": "heightid"
+             }
           }
-    }}
-    );
-    return result.hits.hits[0].sort;
+        }
+      }
+    });
+   // console.log(result.body.hits.hits[0].sort);
+    return result.body.hits.hits[0].sort;
     }
     catch(e)
     {
+      console.log(e);
       return 0;
     }
 };
@@ -155,7 +158,7 @@ async function bootstrap() {
 }
 
 const task = cron.schedule(
-  "*/5 * * * * *", // 10초에 한번씩 실행
+  "*/15 * * * * *", // 10초에 한번씩 실행
   async () => {
     console.log("start");
     let lstheigthid = await getBlockHeightId();  //마지막에 저장한 HeightId 조회 
@@ -221,6 +224,7 @@ const insertDataTest = async () => {
   }*/
 
 };
+
 bootstrap(); //엘라스틱 서치 연결 확인
 task.start();
 //insertDataTest();
