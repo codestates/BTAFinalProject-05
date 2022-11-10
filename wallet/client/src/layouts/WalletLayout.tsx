@@ -1,4 +1,7 @@
+import {useMemo} from "react";
+import {useLocation} from "react-router-dom";
 import {Box} from "@mui/material";
+import {FakeTab} from "../components";
 
 import type {FC, ReactNode} from "react";
 import type {BoxProps} from "@mui/material";
@@ -7,11 +10,19 @@ export interface WalletLayoutProps extends BoxProps {
     logo?: boolean;
     topNode: ReactNode;
     middleNode: ReactNode;
-    bottomNode: ReactNode;
 }
 
 const WalletLayout: FC<WalletLayoutProps> = (props) => {
-    const {sx = {}, topNode, middleNode, bottomNode, ...rest} = props;
+    const {sx = {}, topNode, middleNode, ...rest} = props;
+    const {pathname = '/'} = useLocation();
+
+    const activeIndex = useMemo(() => {
+        if (pathname?.includes('wallet')) {
+            return 0;
+        } else if(pathname?.includes('receipts')) {
+            return 2;
+        } else return 1;
+    }, [pathname]);
 
     return (
         <Box
@@ -48,7 +59,15 @@ const WalletLayout: FC<WalletLayoutProps> = (props) => {
                     bgcolor: 'action.disabledBackground'
                 }}
             >
-                {bottomNode}
+                <Box
+                    height="100%"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <FakeTab activeIndex={activeIndex} />
+                </Box>
             </Box>
         </Box>
     )

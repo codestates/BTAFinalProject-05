@@ -40,7 +40,7 @@ export default function TransactionDetail({ result }) {
               </div>
               <div className="divide-y divide-slate-600/75 divide-dashed">
                 {result._source.outputs.map((output) => (
-                  <div>
+                  <div key={output.transactionId}>
                     <TransactionBox title="boxId" content={output.boxId} />
                     <TransactionBox title="value" content={output.value} />
                     <TransactionBox
