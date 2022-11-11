@@ -3,17 +3,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import TransactionResults from "../../components/TransactionResults";
 
-// const { Client } = require("@elastic/elasticsearch");
-// const client = new Client({
-//   node: process.env.ES_NODE,
-//   auth: {
-//     apiKey: {
-//       id: process.env.ES_ID,
-//       api_key: process.env.ES_API_KEY,
-//     },
-//   },
-// });
-
 export default function Transactions({ results }) {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(0);
@@ -60,25 +49,3 @@ export default function Transactions({ results }) {
     </div>
   );
 }
-
-// export async function getServerSideProps(context) {
-//   const id = context.query.id;
-//   // get transaction from elasticsearch
-//   const { body } = await client.search({
-//     index: "ergo_transaction",
-//     body: {
-//       query: {
-//         match_all: {},
-//       },
-//       size: 20,
-//     },
-//   });
-
-//   const results = body.hits.hits;
-
-//   return {
-//     props: {
-//       results: results,
-//     },
-//   };
-// }

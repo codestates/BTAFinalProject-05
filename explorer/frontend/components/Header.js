@@ -33,7 +33,9 @@ export default function Header() {
           <Link href="/transactions">
             <HeaderIcon Icon={SwitchHorizontalIcon} title="Transaction" />
           </Link>
-          <HeaderIcon Icon={AtSymbolIcon} title="Address" />
+          {/* <Link href="/address">
+            <HeaderIcon Icon={AtSymbolIcon} title="Address" />
+          </Link> */}
         </div>
       </div>
       <SearchBar />
