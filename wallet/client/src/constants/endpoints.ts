@@ -1,5 +1,6 @@
 const PORT = 9052;
-const HOST = `http://localhost:${PORT}`;
+const ADDRESS = 'http://27.96.130.87';
+const HOST = `${ADDRESS}:${PORT}`;
 
 const ENDPOINTS = {
     PING: `${HOST}/ping`,
