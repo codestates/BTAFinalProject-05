@@ -1,7 +1,26 @@
 import TransactionBox from "./TransactionBox";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function TransactionDetail({ result }) {
+  const [walletData, setWalletData] = useState(null);
   console.log(result);
+  const get_address = async () => {
+    const node_url = `http://27.96.130.87:9052/wallet/transactionById?id=${result._source.id}`;
+    const wallet_request = await axios.get(node_url, {
+      headers: {
+        api_key: "hello",
+      },
+    });
+    console.log("wallet request");
+    console.log(wallet_request.data);
+    setWalletData(wallet_request.data);
+  };
+
+  useEffect(() => {
+    get_address();
+  }, []);
+
   return (
     <div className="m-3">
       {result._id ? (
@@ -21,12 +40,18 @@ export default function TransactionDetail({ result }) {
               <div className="font-bold text-lg">
                 <div className="text-slate-700 dark:text-slate-800">Inputs</div>
               </div>
-              {result._source.inputs.map((input) => (
+              {result._source.inputs.map((input, index) => (
                 <>
                   <TransactionBox title="boxId" content={input.boxId} />
                   <TransactionBox
                     title="spendingProof"
                     content={JSON.stringify({ ...input.spendingProof })}
+                  />
+                  <TransactionBox
+                    title="address"
+                    content={
+                      walletData ? walletData.inputs[index].address : null
+                    }
                   />
                 </>
               ))}
@@ -39,8 +64,8 @@ export default function TransactionDetail({ result }) {
                 </div>
               </div>
               <div className="divide-y divide-slate-600/75 divide-dashed">
-                {result._source.outputs.map((output) => (
-                  <div key={output.transactionId}>
+                {result._source.outputs.map((output, index) => (
+                  <div key={index}>
                     <TransactionBox title="boxId" content={output.boxId} />
                     <TransactionBox title="value" content={output.value} />
                     <TransactionBox
@@ -54,6 +79,12 @@ export default function TransactionDetail({ result }) {
                     <TransactionBox
                       title="transactionId"
                       content={output.transactionId}
+                    />
+                    <TransactionBox
+                      title="address"
+                      content={
+                        walletData ? walletData.outputs[index].address : null
+                      }
                     />
                   </div>
                 ))}
