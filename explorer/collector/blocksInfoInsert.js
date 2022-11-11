@@ -175,11 +175,48 @@ async function bootstrap() {
   }
 }
 
-const task = cron.schedule(
-  "*/15 * * * * *", // 10초에 한번씩 실행
-  async () => {
-    
-    console.log("start");
+//
+//const task = cron.schedule(
+//  "*/5 * * * * *", // 10초에 한번씩 실행
+//  async () => {
+//     console.log("start"); 
+//    let lstheigthid = await getBlockHeightId();  //마지막에 저장한 HeightId 조회 
+//    console.log("lstheigthid : ", lstheigthid);
+//    if(lstheigthid > 0){
+//      lstheigthid++;
+//      lastInsertId = lstheigthid;
+//    }
+//    let heigthid = await getLastBlockHeight();
+//    console.log("heigthid : ", heigthid);
+//    console.log("firstInsertId : ", lastInsertId);
+//
+//    if (lastInsertId <= heigthid) {
+//      console.log("true : ");
+//      for (
+//        lastInsertId = lastInsertId;
+//        lastInsertId <= heigthid;
+//        lastInsertId++
+//      ) {
+//        let headerid = await getBlockHeaderId(lastInsertId);
+//        console.log("headerid : ", headerid);
+//        await getBlockHeaderInfo(headerid); // HeaderInfo 저장
+//        await getBlockDetail(headerid); // Detail 저장
+//        await getBlockTransaction(headerid); //transaction 값 저장
+//        await insertBlockHeightId(lastInsertId); // block height id 저장 
+//        console.log("continueInsertId : ", lastInsertId);
+//      }
+//      console.log("lastInsertId : ", lastInsertId);
+//    }
+//    if(lastInsertId > heigthid){ // 테스트결과 heigthid를 넘어가는 경우가 있음. .
+//      lastInsertId = heigthid;
+//      lastInsertId++;
+//    }
+//  }
+//);
+//
+
+const task = async () => {
+    console.log("start"); 
     let lstheigthid = await getBlockHeightId();  //마지막에 저장한 HeightId 조회 
     console.log("lstheigthid : ", lstheigthid);
     if(lstheigthid > 0){
@@ -211,8 +248,7 @@ const task = cron.schedule(
       lastInsertId = heigthid;
       lastInsertId++;
     }
-  }
-);
+  };
 
 const insertDataTest = async () => {
   /*console.log("start111111");
@@ -244,6 +280,15 @@ const insertDataTest = async () => {
 
 };
 
+
+const start = () => {
+  console.log('시작!!!!!!!!!!!');
+  setImmediate(task);
+  console.log('끝!!!!!!!!!!!');
+};
+
 bootstrap(); //엘라스틱 서치 연결 확인
-task.start();
-//insertDataTest();
+//task.start();
+start();
+
+
