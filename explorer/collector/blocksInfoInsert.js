@@ -61,10 +61,16 @@ const getBlockHeaderInfo = async (headerId) => {
 //해당 블럭의 트랜잭션만 조회하는 기능
 const getBlockTransaction = async (headerId) => {
   try {
-    const response = await fetch(
+
+    const requestOptions = {
+      method: 'GET',
+      headers: new Headers({api_key: 'hello'})
+  };
+
+    let response = await fetch(
       ErgoDevServer + "/blocks/" + headerId + "/transactions"
     );
-    const data = await response.json();
+    let data = await response.json();
     var transactionInfo = JSON.parse(JSON.stringify(data, null, 2));
    // console.log(transactionInfo.transactions);
     for (let i = 0; i < transactionInfo.transactions.length; i++) {
@@ -72,6 +78,18 @@ const getBlockTransaction = async (headerId) => {
         index: "ergo_transaction",
         body: transactionInfo.transactions[i],
       });
+
+      response = await fetch(
+        ErgoDevServer + "/wallet/transactionById?id=" + transactionInfo.transactions[i].id, requestOptions
+      );
+
+      data = await response.json();
+      var walletinfo = JSON.parse(JSON.stringify(data, null, 2));
+      await client.index({
+        index: "ergo_wallet",
+        body: walletinfo,
+      });
+      console.log("wallet : " + transactionInfo.transactions[i].id);
     }
   } catch (e) {
     console.log(e);
@@ -160,6 +178,7 @@ async function bootstrap() {
 const task = cron.schedule(
   "*/15 * * * * *", // 10초에 한번씩 실행
   async () => {
+    
     console.log("start");
     let lstheigthid = await getBlockHeightId();  //마지막에 저장한 HeightId 조회 
     console.log("lstheigthid : ", lstheigthid);
