@@ -34,11 +34,11 @@ export async function getServerSideProps(context) {
   console.log(new_id);
   // get transaction from elasticsearch
   const { body } = await client.search({
-    index: "ergo_transaction",
+    index: "ergo_wallet",
     body: {
       query: {
         match: {
-          id: new_id,
+          "outputs.address": id,
         },
       },
     },

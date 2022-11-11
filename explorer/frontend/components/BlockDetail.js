@@ -34,10 +34,7 @@ export default function BlockDetail({ result }) {
                 <th>stateRoot</th>
                 <td>{result.header.stateRoot}</td>
               </tr>
-              <tr>
-                <th>height</th>
-                <td>{result.header.height}</td>
-              </tr>
+
               <tr>
                 <th>nBits</th>
                 <td>{result.header.nBits}</td>

@@ -16,11 +16,11 @@ export default function handler(req, res) {
     console.log(id);
     client
       .search({
-        index: "ergo_wallet_transaction",
+        index: "ergo_wallet",
         body: {
           query: {
             match: {
-              address: id,
+              "outputs.address": id,
             },
           },
         },
