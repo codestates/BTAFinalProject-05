@@ -19,7 +19,7 @@ export default function AddressInfo({ result }) {
       <th>Input Address</th>
       <th>Output Address</th>
       <th>Value</th> */}
-      <td>{result.creationHeight}</td>
+      <td>{result.inclusionHeight}</td>
       <td>{result.numConfirmations}</td>
       <td>
         {result.inputs.map((input, index) => (

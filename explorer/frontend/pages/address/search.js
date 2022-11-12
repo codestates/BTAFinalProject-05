@@ -36,11 +36,19 @@ export async function getServerSideProps(context) {
   const { body } = await client.search({
     index: "ergo_wallet",
     body: {
+      size: 20,
       query: {
         match: {
           "outputs.address": id,
         },
       },
+      sort: [
+        {
+          inclusionHeight: {
+            order: "desc",
+          },
+        },
+      ],
     },
   });
 
