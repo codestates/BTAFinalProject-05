@@ -5,23 +5,29 @@
 </p>
 
 # BTAFinalProject-05
+
 ## 팀 소개
+
 - 팀명 : 에르고머니나
 - 팀원 : 노승남, 윤종승, 한우진, 채윤영
 - 개발 프로젝트 : Ergo wallet & Ergo blockchain explorer
 - 역할 분담
-  * 노드 운영 (공통)
-  * 월렛 개발 (윤종승, 노승남)
-  * 익스플로러 개발 (채윤영, 한우진)
+    * 노드 운영 (공통)
+    * 월렛 개발 (윤종승, 노승남)
+    * 익스플로러 개발 (채윤영, 한우진)
 
 ## 선정 코인 소개
+
 ### 선정한 네트워크
+
 [ERGO](https://ergoplatform.org/en/)
 
 ### 선정 이유
+
 1. Bitcoin과 Ethereum의 장점이 혼합되어 있음
     - 보안을 위해 Bitcoin의 작업 증명 합의 메커니즘을 활용
-        - Bitcoin 네트워크의 작업 증명 메커니즘의 환경적 피해를 최소화하기 위해 노드의 마이닝 크기를 제한 ([Autolykos](https://docs.ergoplatform.com/mining/autolykos/) 마이닝 프로토콜)
+        - Bitcoin 네트워크의 작업 증명 메커니즘의 환경적 피해를 최소화하기 위해 노드의 마이닝 크기를
+          제한 ([Autolykos](https://docs.ergoplatform.com/mining/autolykos/) 마이닝 프로토콜)
     - DeFi 제품에는 Ethereum 네트워크의 스마트 계약 기술을 사용
         - dApp 생성 기능 측면에서 Ethereum과 동일하지만 차이점은 애플리케이션 개발에 가스비가 들지 않는다는 점
         - turing complete smart contract script
@@ -32,7 +38,9 @@
     - logarithmic mining 가능(with less computing power)
 3. zero-knowledge protocol 의 sub class인 [시그마 프로토콜](https://ergoplatform.org/en/blog/2020_03_16_ergo_sigma/) 채택으로 보안성 향상
     - Ergo의 loco에도 시그마(Σ) 기호가 있는 만큼 보안을 중요하게 생각하는 체인
+
 ## 프로젝트 소개
+
 ERGO 네트워크를 이용한 Wallet - Explorer 개발
 
 - Wallet
@@ -53,7 +61,19 @@ ERGO 네트워크를 이용한 Wallet - Explorer 개발
     - Elasticsearch, Kibana
         - 데이터 조회, 인덱스 관리로 데이터 모니터링
 - Ergo Node 구성
-  - Local 환경 및 클라우드 환경 Peer 구성
+    - Local 환경 및 클라우드 환경 Peer 구성
 
 ## 프로젝트 상세
+
 프로젝트 상세 페이지를 보시려면 [이 링크](https://www.notion.so/codestates/5-da23baad4c764ac58e5fbc6f848069fc)를 눌러 노션 페이지로 이동하세요.
+
+## References
+
+| 항목                     | 링크                                                                                                                          |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| ERGO  공식 홈페이지          | 	https://ergoplatform.org/en/                                                                                               |
+| ERGO 개발자 문서	           | https://docs.ergoplatform.com/                                                                                              |
+| ERGO explorer	         | https://explorer.ergoplatform.com/                                                                                          |
+| Ergonaut WIKI	         | https://ergonaut.space/en/home                                                                                              |
+| ERGO docker image	     | https://hub.docker.com/r/ergoplatform/ergo                                                                                  |
+| ERGO full node config	 | https://github.com/ergoplatform/ergo/blob/670b2832422e62a7c84f1b274f76ff5656873a5d/src/main/resources/application.conf#L150 |
