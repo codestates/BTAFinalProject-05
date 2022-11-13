@@ -69,11 +69,11 @@ ERGO 네트워크를 이용한 Wallet - Explorer 개발
 
 ## References
 
-| 항목                     | 링크                                                                                                                          |
-|------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| ERGO  공식 홈페이지          | 	https://ergoplatform.org/en/                                                                                               |
-| ERGO 개발자 문서	           | https://docs.ergoplatform.com/                                                                                              |
-| ERGO explorer	         | https://explorer.ergoplatform.com/                                                                                          |
-| Ergonaut WIKI	         | https://ergonaut.space/en/home                                                                                              |
-| ERGO docker image	     | https://hub.docker.com/r/ergoplatform/ergo                                                                                  |
-| ERGO full node config	 | https://github.com/ergoplatform/ergo/blob/670b2832422e62a7c84f1b274f76ff5656873a5d/src/main/resources/application.conf#L150 |
+| 항목                     | 링크                                                                                   |
+|------------------------|--------------------------------------------------------------------------------------|
+| ERGO  공식 홈페이지          | 	https://ergoplatform.org/en/                                                        |
+| ERGO 개발자 문서	           | https://docs.ergoplatform.com/                                                       |
+| ERGO explorer	         | https://explorer.ergoplatform.com/                                                   |
+| Ergonaut WIKI	         | https://ergonaut.space/en/home                                                       |
+| ERGO docker image	     | https://hub.docker.com/r/ergoplatform/ergo                                           |
+| ERGO full node config	 | https://github.com/ergoplatform/ergo/blob/master/src/main/resources/application.conf |
