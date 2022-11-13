@@ -15,19 +15,27 @@
 > ⚠️ 모든 명령어는 root directory를 기준으로 작성되었습니다.  
 > ⚠️ localhost:9052에 Ergo container가 실행되고 있어야 정상 동작합니다.
 
-### Install
-
+### Repo clone
 ```shell
-# client npm 패키지 설치 및 빌드
-cd client && npm install && npm run build
+# repo clone
+git clone https://github.com/codestates/BTAFinalProject-05.git
+# npm 패키지 설치 및 빌드
+cd wallet/client && npm install && npm run build
 ```
-
 ### 🚨 인증 정보 입력
 `wallet/client/.env` 파일에 `API_KEY`와 `PASSWORD`를 아래와 같이 입력한다.
 ```shell
 REACT_APP_API_KEY=<API KEY>
 REACT_APP_PASSWORD=<PASSWORD>
 ```
+### Install
+
+```shell
+# npm 패키지 설치 및 빌드
+cd wallet/client && npm install && npm run build
+```
+
+
 
 ### Chrome extension 설치 및 실행
 
